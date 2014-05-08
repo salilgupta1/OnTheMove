@@ -49,8 +49,8 @@ coverage.xml
 *.log
 *.pot
 /staticfiles
-settings.py
-settings_prod.py
+#settings.py
+#settings_prod.py
 db.sqlite3
 
 # Sphinx documentation
