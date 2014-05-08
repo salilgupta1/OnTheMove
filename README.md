@@ -4,11 +4,11 @@ Development Environment
 
 In order to set up your dev environment create a virtual environment first. 
 
-virtualenv <name of your environment>
+<code>virtualenv name of your environment </code>
 
 cd into your environment and activate it 
 
-source bin/activate
+<code>source bin/activate</code>
 
 Once inside clone this repo. 
 
@@ -16,19 +16,19 @@ cd into the repo
 
 using pip install the requirements as such
 
-pip install -r requirements/development.txt
+<code>pip install -r requirements/development.txt</code>
 
-Then do python manage.py syncdb
+Then do <code>python manage.py syncdb</code>
 
 this command will create your dbs
 
 after that make sure you can collect all the static files 
 
-python manage.py collectstatic 
+<code>python manage.py collectstatic </code>
 
 
 For Production
 log into heroku whereever your repo is
 
-heroku login
+<code>heroku login</code>
 
