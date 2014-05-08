@@ -1,0 +1,84 @@
+{% extends 'Onthemove/base.html' %}
+{%load staticfiles%}
+{% block title %}Details{% endblock %}
+{%block cssfiles%}
+<link rel='stylesheet' type='text/css' href = "{%static "Activities/css/activityPage.css"%}"/>
+{%endblock%}
+{% block content %}
+
+<div class="modal fade" id="enroll-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class=modal-title>Participants</h4>
+				<div class="modal-body">
+					The owner of this activity has been notified of your enrollment.
+					<br>
+					<div class="pull-right">
+						<button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class=modal-title>Participants</h4>
+				<div class="modal-body">
+					<ul>
+						<li>Greg Chan</li>
+						<li>Salil Gupta</li>
+					</ul>
+					<div class="pull-right">
+						<button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row border-div">
+
+	  <div class="col-xs-6">
+	  	<h1>Tennis at Northwestern</h1>
+	  	<img class="act-logo" src="http://livingstontownship.org/sylsprograms/wp-content/uploads/2013/07/tennis-logo.jpg">
+	  	<h3>Intermediate</h3>
+	  </div>
+
+	  <div class="col-xs-6">
+	  	<h3><span>5/9/14</span> at <span>4PM</span></h3>
+	  	<h3><span>1927 Orrington Ave</span><br><span>Evanston, IL 60201</span></h3>
+	  	<button class="btn" id="enroll-btn" data-toggle="modal" data-target="#enroll-modal">Enroll</button>
+
+	  </div>
+	</div>
+
+	<div class="row border-div loc-div">
+		<h1>Combe Tennis Center</h1>
+		<div id="rating-div">
+			<span class="fa icon-star rating"></span>
+			<span class="fa icon-star rating"></span>
+			<span class="fa icon-star rating"></span>
+			<span class="fa icon-star rating"></span>
+			<span class="fa icon-star-empty rating"></span>
+		</div>
+		<div class="img-div">
+			<img class="loc-img" src="http://fitrec.mccormick.northwestern.edu/wordpress/http://fitrec.mccormick.northwestern.edu/wordpress/wp-content/uploads/2010/07/CombeTennisCourts450x300.jpg">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="text-center">
+			<button class="btn btn-lg clear-btn-white" data-toggle="modal" data-target="#user-modal">Participants</button>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{%block jsfiles%}{%endblock%}
