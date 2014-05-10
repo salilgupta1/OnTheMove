@@ -33,6 +33,20 @@ function addActivities(map){
   google.maps.event.addListener(marker,'click',function(){
     infowindow.open(map,marker);
   });
+
+  //temporary remove later
+  var infowindow2 = new google.maps.InfoWindow({
+    content: "<div>Golf Activity</div>"
+  });
+  var coods2 = new google.maps.LatLng(42.064181, -87.685581);
+  var marker2 = new google.maps.Marker({
+    position:coods2,
+    map:map,
+  });
+  marker2.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+  google.maps.event.addListener(marker2,'click',function(){
+    infowindow2.open(map,marker2);
+  });
 }
 
 $(document).ready(function(){
