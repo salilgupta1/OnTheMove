@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from Activities.models import OnthemoveActivity as Act, OnthemoveLocation as Loc
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect,HttpResponse
+from django.core.urlresolvers import reverse
 
 # Create your views here.
 
@@ -11,6 +14,11 @@ def details(request, id):
 	location = activity.location_id
 	context["location_name"] = location.location_name
 	context["date"] = activity.date.strftime('%m/%d/%Y') #not work
-
-
 	return render(request,"Activities/details.html", context)
+
+def enroll(request):
+	# pass
+	# if request.method == 'POST':
+	send_mail('Test OnTheMove','email sent successfully', 'No_reply@OnTheMove.com', ['ava.gu1990@gmail.com'], fail_silently = False)
+		
+	return HttpResponseRedirect(reverse("home"))
