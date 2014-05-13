@@ -1,0 +1,37 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}Create Activity{%endblock%}
+
+{%block content%}
+<form role="form" method="POST" action = "{%url 'Activities:create_Activity'%}">{%csrf_token%}
+	<h1>Create an Activity</h1>
+	<div class="form-group">
+		{{create_form.activity_name.label_tag}}
+		{{create_form.activity_name}}
+
+		{{create_form.start_time.label_tag}}
+		{{create_form.start_time}}
+
+		{{create_form.end_time.label_tag}}
+		{{create_form.end_time}}
+
+		{{create_form.max_num_attendees.label_tag}}
+		{{create_form.max_num_attendees}}
+
+		{{create_form.min_num_attendees.label_tag}}
+		{{create_form.min_num_attendees}}
+
+		{{create_form.skill_level.label_tag}}
+		{{create_form.skill_level}}
+
+		{{create_form.date.label_tag}}
+		{{create_form.date}}
+	</div>
+	<input type = 'submit' value = "Create"/>
+</form>
+
+{%endblock%}
+{%block Form%}
+
+
+{%endblock%}
