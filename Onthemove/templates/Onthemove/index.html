@@ -1,7 +1,26 @@
 {% extends 'Onthemove/base.html' %}
+{%load staticfiles%}
 {% block title %}Home{% endblock %}
 {% block content %}
 
 <div id="googleMap"></div>
 
 {% endblock %}
+{%block jsfiles%}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false"></script>
+<script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
+<script>
+	$(document).ready(function(){
+	    navigator.geolocation.getCurrentPosition(
+	    	function(pos){
+		    	var act = {{activity_info|safe}};
+		    	var loc = {{location_info |safe}};
+		    	GoogleMap.init(pos,act,loc);
+	    	},
+		    function(){
+		    	alert('Geo location is not supported');
+		   	}
+		);
+	});
+</script>
+{%endblock%}
