@@ -19,6 +19,7 @@ def details(request, id):
 	context["state"] = location.state
 	context["skill"] = activity.skill_level
 	context["attendees"] = activity.attendees
+	context["city"] = location.city
 
 	return render(request,"Activities/details.html", context)
 def enroll(request):

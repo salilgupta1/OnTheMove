@@ -35,6 +35,7 @@ class OnthemoveLocation(models.Model):
 	latitude= models.FloatField('Latitude',null =True, blank = True)
 	zipcode = models.IntegerField(null=True)
 	address = models.TextField(null=True)
+	city = models.TextField(null=True)
 	state = models.TextField(null=True)
 	country = models.TextField(null=True)
 	#add address
