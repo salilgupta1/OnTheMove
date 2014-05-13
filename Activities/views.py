@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Activities.models import OnthemoveActivity as Act, OnthemoveLocation as Loc
+from Users.models import OnthemoveUser as User
 
 # Create your views here.
 
@@ -11,6 +12,10 @@ def details(request, id):
 	location = activity.location_id
 	context["location_name"] = location.location_name
 	context["date"] = activity.date.strftime('%m/%d/%Y') #not work
-
+	context["address"] = location.address
+	context["zipcode"] = location.zipcode
+	context["state"] = location.state
+	context["skill"] = activity.skill_level
+	context["attendees"] = activity.attendees
 
 	return render(request,"Activities/details.html", context)
