@@ -69,7 +69,7 @@
 	  </div>
 
 	  <div class="col-xs-6">
-	  	<h3><span>5/9/14</span> at <span>4PM</span></h3>
+	  	<h3><span>{{date}}</span> at <span>{{ start_time }}</span></h3>
 	  	<h3><span>1927 Orrington Ave</span><br><span>Evanston, IL 60201</span></h3>
 	  	<h3><span>Weather: Sunny</span></h3>
 	  	<button class="btn" id="enroll-btn" data-toggle="modal" data-target="#enroll-modal">Enroll</button>
@@ -78,7 +78,7 @@
 	</div>
 
 	<div class="row border-div loc-div">
-		<h1>Combe Tennis Center</h1>
+		<h1>{{ location_name }}</h1>
 		<div id="rating-div">
 			<span class="fa icon-star rating"></span>
 			<span class="fa icon-star rating"></span>
