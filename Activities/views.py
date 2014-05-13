@@ -14,8 +14,13 @@ def details(request, id):
 	location = activity.location_id
 	context["location_name"] = location.location_name
 	context["date"] = activity.date.strftime('%m/%d/%Y') #not work
-	return render(request,"Activities/details.html", context)
+	context["address"] = location.address
+	context["zipcode"] = location.zipcode
+	context["state"] = location.state
+	context["skill"] = activity.skill_level
+	context["attendees"] = activity.attendees
 
+	return render(request,"Activities/details.html", context)
 def enroll(request):
 	# pass
 	# if request.method == 'POST':
