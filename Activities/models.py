@@ -1,6 +1,6 @@
 from django.db import models
 #from django.contrib.auth.models import User
- 
+#from Users.models import OnthemoveUser
 
 # Create your models here.
 class OnthemoveActivity(models.Model):
@@ -12,7 +12,8 @@ class OnthemoveActivity(models.Model):
 	activity_img = models.ImageField(upload_to ="static/Activities/img/activity",default="static/Activities/img/activity/default_act.jpg")
 	min_num_attendees = models.IntegerField(null=True)
 	max_num_attendees = models.IntegerField()
-	owner_id = models.ForeignKey("Users.OnthemoveUser")
+	owner_id = models.ForeignKey("Users.OnthemoveUser",related_name='o+')
+	attendees = models.ManyToManyField("Users.OnthemoveUser",related_name='a+')
 	BEGINNER = "Beginner"
 	INTERMEDIATE = "Intermediate"
 	ADVANCED = "Advanced"
@@ -32,4 +33,8 @@ class OnthemoveLocation(models.Model):
 	location_rate = models.DecimalField(max_digits = 2, decimal_places = 1)
 	longitude = models.FloatField('Longitude',null =True, blank = True)
 	latitude= models.FloatField('Latitude',null =True, blank = True)
+	zipcode = models.IntegerField(null=True)
+	address = models.TextField(null=True)
+	state = models.TextField(null=True)
+	country = models.TextField(null=True)
 	#add address

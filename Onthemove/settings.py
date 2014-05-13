@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os,config
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i%jmr4@d$&#d92e!p@nh_%7tthh23l+9tjpl7e-_%h55v4xm4$'
+SECRET_KEY = config.keys['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'Onthemove',
     'Users',
     'Activities',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,5 +89,9 @@ STATICFILES_DIRS= (
     os.path.join(BASE_DIR, "static"),
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = config.keys['SENDGRID_USERNAME']
+EMAIL_HOST= 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = config.keys['SENDGRID_PASSWORD']
