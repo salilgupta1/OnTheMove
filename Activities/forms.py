@@ -3,7 +3,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 from models import OnthemoveActivity,OnthemoveLocation
 
 class ActivityForm(forms.ModelForm):
-	activity_name = forms.CharField(max_length=100, widget = forms.TextInput(attrs={'class':'form-control'}))
+	activity_name = forms.CharField(max_length=100, error_messages={'required':'Please input an activity name'}, widget = forms.TextInput(attrs={'class':'form-control'}))
 	BEGINNER = "Beginner"
 	INTERMEDIATE = "Intermediate"
 	ADVANCED = "Advanced"
@@ -13,7 +13,9 @@ class ActivityForm(forms.ModelForm):
 		(ADVANCED ,"Advanced")
 	)
 	skill_level = forms.ChoiceField(choices = skill_choices)
-	date = forms.DateField(widget=AdminDateWidget)
+	date = forms.DateField(error_messages={'required':'Please input a date'}, widget=forms.TextInput(attrs={'id':'datepicker'}))
+	start_time = forms.DateTimeField(error_messages={'required':'Please input a start time'}, widget=forms.TextInput(attrs={'id':'start-time-picker'}))
+	end_time = forms.DateTimeField(error_messages={'required':'Please input a end time'}, widget=forms.TextInput(attrs={'id':'end-time-picker'}))
 
 	def __init__(self,*args,**kwargs):
 		super(ActivityForm,self).__init__(*args,**kwargs)
