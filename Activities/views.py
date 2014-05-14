@@ -25,6 +25,6 @@ def details(request, id):
 def enroll(request):
 	# pass
 	# if request.method == 'POST':
-	send_mail('Test OnTheMove','email sent successfully', 'No_reply@OnTheMove.com', ['ava.gu1990@gmail.com'], fail_silently = False)
+	send_mail('Test OnTheMove','email sent successfully', 'No_reply@OnTheMove.com', ['salil.gupta323@gmail.com','samarpatel2014@u.northwestern.edu','adnan.sheikh@hp.com'], fail_silently = False)
 		
 	return HttpResponseRedirect(reverse("home"))
