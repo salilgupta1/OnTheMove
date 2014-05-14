@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from localflavor.us.models import PhoneNumberField 
 # Create your models here.
 
 class OnthemoveUser(models.Model):
@@ -12,6 +13,6 @@ class OnthemoveUser(models.Model):
 		(FEMALE,"Female"),
 		(PNT,"Prefer not to Disclose"))
 	gender = models.CharField(max_length=2,choices = GENDER,default =PNT )
-	phoneNumber = models.IntegerField(max_length=10,unique=True)
+	phoneNumber = PhoneNumberField()
 	img = models.ImageField(upload_to ="static/Users/img/user_img",default="static/Users/img/user_img/default_user.jpg",null=True)
 	age = models.IntegerField(null=True)
