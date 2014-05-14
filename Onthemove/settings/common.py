@@ -11,7 +11,8 @@ INSTALLED_APPS = (
     'Onthemove',
     'Users',
     'Activities',
-    'south'
+    'south',
+    'localflavor'
 )
 
 MIDDLEWARE_CLASSES = (
