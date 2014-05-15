@@ -27,11 +27,18 @@ class ActivityForm(forms.ModelForm):
 		fields = ['activity_name','start_time','end_time','max_num_attendees','min_num_attendees','skill_level','date']
 
 class LocationForm(forms.ModelForm):
+	location_name = forms.CharField(max_length=100, widget = forms.TextInput(attrs={'class':'form-control'}))
+	address = forms.CharField(max_length=100, error_messages={'required':'Please input an address'}, widget = forms.TextInput(attrs={'class':'form-control'}))
+	state = forms.CharField(max_length=2, error_messages={'required':'Please input a state'}, widget = forms.TextInput(attrs={'class':'form-control'}))
+	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'}, widget = forms.TextInput(attrs={'class':'form-control'}))
+	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'}, widget = forms.TextInput(attrs={'class':'form-control'}))
+	location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1)
+	
 	def __init__(self,*args,**kwargs):
-		super(LocationForm,self).__init__(*args,**kwards)
+		super(LocationForm,self).__init__(*args,**kwargs)
 		for fields in self.fields.items():
 			fields[1].widget.attrs.update({'class':'form-control'})
 
 	class Meta:
 		model = OnthemoveLocation
-		fields = ['location_name','address','state','zipcode']
+		fields = ['location_name','address','state','city','zipcode', 'location_rate']

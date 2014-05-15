@@ -33,9 +33,11 @@ def enroll(request):
 def create_Activity(request):
 	if request.method == 'POST':
 		form = ActivityForm(request.POST)
+		print "do we hit here outside?"
 		if form.is_valid():
+			print "do we hit here?"
 			form.save()
-			return HttpResponseRedirect(reverse("Ontehmove:index"))
+			return HttpResponseRedirect('/Activities/create_Location')
 	else:
 		form = ActivityForm()
 	context = {}
@@ -48,10 +50,10 @@ def create_Location(request):
 		form = LocationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect(reverse("Ontehmove:index"))
+			return HttpResponseRedirect(reverse("Activities:create_Activity"))
 	else:
 		form = LocationForm()
 	context = {}
 	context.update(csrf(request))
 	context['create_form'] = form
-	return render(request,"Activities/createActivity.html",context)
+	return render(request,"Activities/createLocation.html",context)

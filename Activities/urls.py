@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^details/(?P<id>\d)/$',views.details, name='details'),
     url(r'^enroll/$', views.enroll, name = 'enroll'),
     url(r'^create_activity/$',views.create_Activity,name='create_Activity'),
+    url(r'^choose_location/$',views.create_Location,name='create_Location'),
 )
 
