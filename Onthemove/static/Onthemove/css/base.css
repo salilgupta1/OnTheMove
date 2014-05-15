@@ -92,6 +92,17 @@ body {
   height:475px;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.btn-default{
+   float: right;
+   margin-right: 9px;
+   padding-top: 2px;
+   padding-bottom: 2px;
+}
+
 /* Main elements end */
 
 
