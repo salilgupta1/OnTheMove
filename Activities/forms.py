@@ -25,3 +25,13 @@ class ActivityForm(forms.ModelForm):
 	class Meta:
 		model = OnthemoveActivity
 		fields = ['activity_name','start_time','end_time','max_num_attendees','min_num_attendees','skill_level','date']
+
+class LocationForm(forms.ModelForm):
+	def __init__(self,*args,**kwargs):
+		super(LocationForm,self).__init__(*args,**kwards)
+		for fields in self.fields.items():
+			fields[1].widget.attrs.update({'class':'form-control'})
+
+	class Meta:
+		model = OnthemoveLocation
+		fields = ['location_name','address','state','zipcode']

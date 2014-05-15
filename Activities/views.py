@@ -18,3 +18,16 @@ def create_Activity(request):
 	context.update(csrf(request))
 	context['create_form'] = form
 	return render(request,"Activities/createActivity.html",context)
+
+def create_Location(request):
+	if request.method == 'POST':
+		form = LocationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse("Ontehmove:index"))
+	else:
+		form = LocationForm()
+	context = {}
+	context.update(csrf(request))
+	context['create_form'] = form
+	return render(request,"Activities/createActivity.html",context)
