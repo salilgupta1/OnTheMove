@@ -92,6 +92,10 @@ body {
   height:475px;
 }
 
+a, a:hover {
+  color: white;
+}
+
 /* Main elements end */
 
 
