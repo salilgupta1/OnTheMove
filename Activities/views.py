@@ -135,3 +135,10 @@ def convert_Time(time):
 		hours = int(hours) - 12
 
 	return str(hours) + ":" + str(minutes) + ":" + str(0)
+
+def geocode(addr):
+    url = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false" %   (urllib2.quote(addr.replace(' ', '+')))
+    data = urllib2.urlopen(url).read()
+    info = json.loads(data).get("results")[0].get("geometry").get("location")
+
+    return info
