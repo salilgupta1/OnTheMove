@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from forms import ActivityForm, LocationForm
 from django.core.context_processors import csrf
 from datetime import datetime
+from googlemaps import GoogleMaps
+import urllib2, json
 
 # Create your views here.
 
@@ -33,11 +35,9 @@ def enroll(request):
 	return HttpResponseRedirect(reverse("home"))
 
 def create_Activity(request, location_id):
-	print location_id
 	if request.method == 'POST':
 		# form = ActivityForm(initial={'location_id': 'location_id'})
 		form = ActivityForm(request.POST)
-		print "do we hit here outside?"
 		date = request.POST.get('date')
 		start_time = request.POST.get('start_time')
 		end_time = request.POST.get('end_time')
@@ -60,10 +60,8 @@ def create_Activity(request, location_id):
 		request.GET['skill_level'] = skill
 
 		form1 = ActivityForm(request.GET)
-		print form1
 
 		m = form1.save(commit=False)
-		print "did we save ish?"
 		location = Loc.objects.get(location_id=location_id)
 		owner = User.objects.get(id=1)
 
@@ -71,7 +69,6 @@ def create_Activity(request, location_id):
 		m.owner_id = owner
 
 		if form1.is_valid():
-			print "do we hit here?"
 			form1.save()
 			return HttpResponseRedirect(reverse("home"))
 	else:
@@ -85,9 +82,32 @@ def create_Activity(request, location_id):
 def create_Location(request):
 	if request.method == 'POST':
 		form = LocationForm(request.POST)
+
+		name = request.POST.get('location_name')
+		street = request.POST.get('address')
+		city = request.POST.get('city')
+		state = request.POST.get('state')
+		zipcode = request.POST.get('zipcode')
+		rating = request.POST.get('location_rate')
+
+		# gmaps = GoogleMaps("AIzaSyBP1fyEFwMdXYuajcnYFdt2QS--mDspV4o")
+		addr_str = street + ", " + city + ", " + state
+		# print gmaps
+		# data = gmaps.address_to_latlng(addr_str)
+
+		r = geocode(addr_str)
+		lat = r['lat']
+		lng = r['lng']
+
+		m = form.save(commit=False)
+		m.longitude = lng
+		m.latitude = lat
+
 		if form.is_valid():
 			location_obj = form.save()
 			location_id = location_obj.location_id
+			lng = location_obj.longitude
+			lat = location_obj.latitude
 			return HttpResponseRedirect(reverse("Activities:create_Activity", args=(location_id,)))
 	else:
 		form = LocationForm()
@@ -110,4 +130,9 @@ def convert_Time(time):
 
 	return str(hours) + ":" + str(minutes) + ":" + str(0)
 
+def geocode(addr):
+	url = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false" %   (urllib2.quote(addr.replace(' ', '+')))
+	data = urllib2.urlopen(url).read()
+	info = json.loads(data).get("results")[0].get("geometry").get("location")
 
+	return info
