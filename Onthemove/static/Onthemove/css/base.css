@@ -98,7 +98,9 @@ body {
 }
 .btn-default{
    float: right;
-   margin-right: 2px;
+   margin-right: 9px;
+   padding-top: 2px;
+   padding-bottom: 2px;
 }
 
 /* Main elements end */
