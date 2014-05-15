@@ -16,7 +16,7 @@ class ActivityForm(forms.ModelForm):
 	date = forms.DateField(error_messages={'required':'Please input a date'}, widget=forms.TextInput(attrs={'id':'datepicker'}))
 	start_time = forms.DateTimeField(error_messages={'required':'Please input a start time'}, widget=forms.TextInput(attrs={'id':'start-time-picker'}))
 	end_time = forms.DateTimeField(error_messages={'required':'Please input a end time'}, widget=forms.TextInput(attrs={'id':'end-time-picker'}))
-
+	
 	def __init__(self,*args,**kwargs):
 		super(ActivityForm,self).__init__(*args,**kwargs)
 		for fields in self.fields.items():
@@ -41,4 +41,4 @@ class LocationForm(forms.ModelForm):
 
 	class Meta:
 		model = OnthemoveLocation
-		fields = ['location_name','address','state','city','zipcode', 'location_rate']
+		fields = ['location_name','address','state','city','zipcode','location_rate']
