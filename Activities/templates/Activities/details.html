@@ -12,11 +12,12 @@
 			<div class="modal-header">
 				<h4 class=modal-title>Participants</h4>
 				<div class="modal-body">
-					The owner of this activity has been notified of your enrollment.
-					<br>
-					<div class="pull-right">
-						<button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+					<p >Are you sure you want to enroll in this activity?</p>
+					<div>
+						<a  class="btn btn-default" href = "{%url 'Activities:enroll'%}">Yes</a>
+						<a  class="btn btn-default" data-dismiss="modal">No </a>
 					</div>
+					<br>
 				</div>
 			</div>
 		</div>
@@ -38,6 +39,20 @@
 							</tr>
 						</thead>
 						<tbody>
+						{% for participant in attendees.all %}
+							<tr>
+								<td>{{ participant.user.first_name }} {{ participant.user.last_name }}</td>
+								<td>
+									{{ participant.age }}
+								</td>
+								<td>
+									{{ participant.gender }}
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+						<!-- 
+						<tbody>
 							<tr>
 								<td>Salil Gupta</td>
 								<td>21</td>
@@ -48,7 +63,7 @@
 								<td>20</td>
 								<td>M</td>
 							</tr>
-						</tbody>
+						</tbody> -->
 					</table>
 					<div class="pull-right">
 						<button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
@@ -63,14 +78,14 @@
 	<div class="row border-div">
 
 	  <div class="col-xs-6">
-	  	<h1>Tennis at Northwestern</h1>
+	  	<h1>{{ activity_name }}</h1>
 	  	<img class="act-logo" src="http://livingstontownship.org/sylsprograms/wp-content/uploads/2013/07/tennis-logo.jpg">
-	  	<h3>Intermediate</h3>
+	  	<h3>{{ skill }}</h3>
 	  </div>
 
 	  <div class="col-xs-6">
-	  	<h3><span>5/9/14</span> at <span>4PM</span></h3>
-	  	<h3><span>1927 Orrington Ave</span><br><span>Evanston, IL 60201</span></h3>
+	  	<h3><span>{{date}}</span> at <span>{{ start_time }}</span></h3>
+	  	<h3><span>{{ address }}</span><br><span>{{city}}, {{ state }} {{ zipcode }}</span></h3>
 	  	<h3><span>Weather: Sunny</span></h3>
 	  	<button class="btn" id="enroll-btn" data-toggle="modal" data-target="#enroll-modal">Enroll</button>
 
@@ -78,7 +93,7 @@
 	</div>
 
 	<div class="row border-div loc-div">
-		<h1>Combe Tennis Center</h1>
+		<h1>{{ location_name }}</h1>
 		<div id="rating-div">
 			<span class="fa icon-star rating"></span>
 			<span class="fa icon-star rating"></span>
