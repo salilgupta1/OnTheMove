@@ -71,7 +71,7 @@ def create_Activity(request, location_id):
 
 		m = form1.save(commit=False)
 		location = Loc.objects.get(location_id=location_id)
-		owner = User.objects.get(id=1)
+		owner = User.objects.get(id=1)  ### FIX LATER WHEN USERS ARE CREATED
 
 		m.location_id = location
 		m.owner_id = owner
