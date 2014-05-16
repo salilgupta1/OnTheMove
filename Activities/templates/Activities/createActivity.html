@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="{%static "Activities/css/default.css"%}">
 <link rel="stylesheet" type="text/css" href="{%static "Activities/css/default.time.css"%}">
+<link rel="stylesheet" type="text/css" href="{%static "Activities/css/chooseActivity.css"%}">
 {%endblock%}
 {%block content%}
 <form role="form" method="POST" action = "{%url 'Activities:create_Activity' id%}">{%csrf_token%}

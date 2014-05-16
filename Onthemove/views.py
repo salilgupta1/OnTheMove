@@ -13,6 +13,5 @@ def home_page(request):
 		coordinates.append(serializers.serialize('json',[i.location_id],fields = ('latitude','longitude')))
 	context = {}
 	context['activity_info']=act_json
-	print context['activity_info']
 	context['location_info']= coordinates
 	return render(request,'Onthemove/index.html',context)

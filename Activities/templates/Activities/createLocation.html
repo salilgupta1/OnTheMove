@@ -1,6 +1,9 @@
 {%extends "Onthemove/base.html"%}
 {%load staticfiles%}
 {%block title%}Choose Location{%endblock%}
+{%block cssfiles%}
+<link rel="stylesheet" type="text/css" href="{%static "Activities/css/chooseActivity.css"%}">
+{%endblock%}
 {%block content%}
 <form role="form" method="POST" action = "{%url 'Activities:create_Location'%}">{%csrf_token%}
 	<h1>Create an Activity</h1>
