@@ -13,6 +13,7 @@ import urllib2, json
 # Create your views here.
 @ensure_csrf_cookie
 def details(request, id):
+	print id
 	activity = Act.objects.get(activity_id=id)
 	if request.is_ajax():
 		send_mail('Request to Join Activity on OnTheMove',"Hi "+activity.owner_id.user.first_name+",Jerry has requested to join your activity "+activity.activity_name+". Here is an overview of Jerry's profile Age: 24, Gender: Male",

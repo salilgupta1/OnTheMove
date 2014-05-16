@@ -21,7 +21,9 @@ var GoogleMap = (function($){
 	addActivities = function(act,loc,map){
 		for(var i = 1;i>=0;i--){
 			var aLoc = $.parseJSON(loc[i]);
-			var url = "activities/details/"+act[i]['fields']['location_id'];
+			console.log(act[i]['fields'])
+			var url = "activities/details/"+act[i]['pk'];
+			console.log(url);
 			var content = "<div>"+act[i]['fields']['activity_name']+"</div><a href="+url+">View Details</a>";
 
 			var infowindow = new google.maps.InfoWindow();
