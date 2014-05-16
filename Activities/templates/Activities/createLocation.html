@@ -7,26 +7,13 @@
 {%block content%}
 <form role="form" method="POST" action = "{%url 'Activities:create_Location'%}">{%csrf_token%}
 	<h1>Create an Activity</h1>
-	<div class="form-group">
-		{{create_form.location_name.label_tag}}
-		{{create_form.location_name}}
-
-		{{create_form.address.label_tag}}
-		{{create_form.address}}
-
-		{{create_form.city.label_tag}}
-		{{create_form.city}}
-
-		{{create_form.state.label_tag}}
-		{{create_form.state}}
-
-		{{create_form.zipcode.label_tag}}
-		{{create_form.zipcode}}
-
-		{{create_form.location_rate.label_tag}}
-		{{create_form.location_rate}}
-
-	</div>
+			{% for field in create_form %}
+			<div class = 'form-group'>
+				<div>{{field.errors|striptags}}</div>
+	    		{{field.label_tag}}
+	    		{{field}}
+	    	</div>
+			{% endfor %}
 	<input class="btn btn-default" type = 'submit' value = "Next"/>
 </form>
 

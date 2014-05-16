@@ -25,7 +25,7 @@ class ActivityForm(forms.ModelForm):
 		
 	class Meta:
 		model = OnthemoveActivity
-		fields = ['activity_name','start_time','end_time','max_num_attendees','min_num_attendees','skill_level','date']
+		fields = ['activity_name','date','start_time','end_time','max_num_attendees','min_num_attendees','skill_level']
 
 class LocationForm(forms.ModelForm):
 	location_name = forms.CharField(max_length=100,error_messages={'required':'Please input a name'})
@@ -43,4 +43,4 @@ class LocationForm(forms.ModelForm):
 
 	class Meta:
 		model = OnthemoveLocation
-		fields = ['location_name','address','state','city','zipcode','location_rate']
+		fields = ['location_name','address','city','state','zipcode','location_rate']

@@ -10,29 +10,14 @@
 {%block content%}
 <form role="form" method="POST" action = "{%url 'Activities:create_Activity' id%}">{%csrf_token%}
 	<h1>Create an Activity</h1>
-	<div class="form-group">
-		{{create_form.activity_name.label_tag}}
-		{{create_form.activity_name}}
+			{% for field in create_form %}
+			<div class = 'form-group'>
+				<div>{{field.errors|striptags}}</div>
+	    		{{field.label_tag}}
+	    		{{field}}
+	    	</div>
+			{% endfor %}
 
-		{{create_form.date.label_tag}}
-		{{create_form.date}}
-
-		{{create_form.start_time.label_tag}}
-		{{create_form.start_time}}
-
-		{{create_form.end_time.label_tag}}
-		{{create_form.end_time}}
-
-		{{create_form.max_num_attendees.label_tag}}
-		{{create_form.max_num_attendees}}
-
-		{{create_form.min_num_attendees.label_tag}}
-		{{create_form.min_num_attendees}}
-
-		{{create_form.skill_level.label_tag}}
-		{{create_form.skill_level}}
-
-	</div>
 	<input class="btn btn-default" type = 'submit' value = "Create"/>
 </form>
 
