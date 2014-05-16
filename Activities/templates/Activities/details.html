@@ -14,16 +14,16 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class=modal-title>Enroll</h4>
-				<div class="modal-body">
-					<p>Are you sure you want to enroll in this activity?</p>
-					<div>
-						<div id='loading' style='display: none'><img src="{%static "js/ajax-loader.gif"%}" title="Loading" /></div>
-						<div>
-							<a  class="btn btn-default" data-dismiss="modal">No </a>
-							<a  class="btn btn-default" id="enroll">Yes</a>
-						</div>
-					</div>
+			</div>
+			<div class="modal-body" id = "body_modal">
+				<p>Are you sure you want to enroll in this activity?</p>
+				<div>
+					<div id="loading" style="display: none"><img src="{%static "js/ajax-loader.gif"%}" title="Loading" /></div>
 				</div>
+			</div>
+			<div class = "modal-footer">
+				<a  class="btn btn-default" data-dismiss="modal">No </a>
+				<a  class="btn btn-default" id="enroll">Yes</a>
 			</div>
 		</div>
 	</div>
