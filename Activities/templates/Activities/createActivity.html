@@ -1,0 +1,110 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}Create Activity{%endblock%}
+{%block cssfiles%}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="{%static "Activities/css/default.css"%}">
+<link rel="stylesheet" type="text/css" href="{%static "Activities/css/default.time.css"%}">
+{%endblock%}
+{%block content%}
+<form role="form" method="POST" action = "{%url 'Activities:create_Activity' id%}">{%csrf_token%}
+	<h1>Create an Activity</h1>
+	<div class="form-group">
+		{{create_form.activity_name.label_tag}}
+		{{create_form.activity_name}}
+
+		{{create_form.date.label_tag}}
+		{{create_form.date}}
+
+		{{create_form.start_time.label_tag}}
+		{{create_form.start_time}}
+
+		{{create_form.end_time.label_tag}}
+		{{create_form.end_time}}
+
+		{{create_form.max_num_attendees.label_tag}}
+		{{create_form.max_num_attendees}}
+
+		{{create_form.min_num_attendees.label_tag}}
+		{{create_form.min_num_attendees}}
+
+		{{create_form.skill_level.label_tag}}
+		{{create_form.skill_level}}
+
+	</div>
+	<input type = 'submit' value = "Create"/>
+</form>
+
+{%endblock%}
+{%block jsfiles%}
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src = "{%static "Activities/js/picker.js"%}"></script>
+<script src = "{%static "Activities/js/picker.time.js"%}"></script>
+<script>
+	$(function(){
+		$('#datepicker').datepicker();
+		var endInput = $("#end-time-picker").pickatime({
+		  clear: ''
+		});
+
+		var endPicker = endInput.pickatime('picker');
+
+		var startInput = $("#start-time-picker").pickatime({
+		  clear: '',
+		  onSet: function() {
+		    var start = startInput.pickatime('picker').get('select');
+		    var endPicker = endInput.pickatime('picker');
+		    endPicker.set('select', [start.hour + 1, start.mins]);
+		  }
+		});
+
+		var startPicker = startInput.pickatime('picker');
+		var now = startPicker.get('now');
+		startPicker.set('select', [now.hour, now.mins]);
+
+		$(".timepicker").change(function() {
+		  var startHour = $("#start-hour").val();
+		  var startMinute = $("#start-minute").val();
+		  var startAmpm = $("#start-ampm").val();
+		  var time = {
+		    hour: startHour,
+		    ampm: startAmpm
+		  };
+
+		  var endTime = getEndTime(time);
+
+		  $("#end-hour").val(timeToString(endTime.hour));
+		  $("#end-ampm").val(endTime.ampm);
+		  $("#end-minute").val(startMinute);
+
+		});
+	});
+
+	function timeToString(hour) {
+	  hour = hour.toString();
+	  if (hour.length == 1) {
+	    hour = "0" + hour;
+	  }
+	  return hour;
+	}
+	function getEndTime(time) {
+	  var hour = time.hour;
+	  var ampm = time.ampm;
+	  if (hour == 12) {
+	    if (ampm == "AM") {
+	      ampm = "PM";
+	    } else {
+	      ampm = "AM";
+	    }
+	    hour = 1;
+	  } else {
+	    hour++;
+	  }
+	  return {
+	    hour: hour,
+	    ampm: ampm
+	  };
+	}
+
+</script>
+{%endblock%}
