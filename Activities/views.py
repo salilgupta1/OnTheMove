@@ -13,7 +13,6 @@ import urllib2, json
 # Create your views here.
 @ensure_csrf_cookie
 def details(request, id):
-	print id
 	activity = Act.objects.get(activity_id=id)
 	if request.is_ajax():
 		send_mail('Request to Join Activity on OnTheMove',"Hi "+activity.owner_id.user.first_name+",Jerry has requested to join your activity "+activity.activity_name+". Here is an overview of Jerry's profile Age: 24, Gender: Male",
@@ -35,16 +34,10 @@ def details(request, id):
 		context['path'] = request.path
 		return render(request,"Activities/details.html", context)
 
-def enroll(request):
-	# pass
-	# if request.method == 'POST':
-	send_mail('Test OnTheMove','email sent successfully', 'No_reply@OnTheMove.com', ['ava.gu1990@gmail.com'], fail_silently = False)
-	return HttpResponseRedirect(reverse("home"))
-
 def create_Activity(request, location_id):
 	if request.method == 'POST':
-		# form = ActivityForm(initial={'location_id': 'location_id'})
 		form = ActivityForm(request.POST)
+
 		date = request.POST.get('date')
 		start_time = request.POST.get('start_time')
 		end_time = request.POST.get('end_time')
@@ -57,11 +50,10 @@ def create_Activity(request, location_id):
 		st = datetime.strptime(convert_Time(start_time), "%H:%M:%S")
 		et = datetime.strptime(convert_Time(end_time), "%H:%M:%S")
 
-
 		request.GET = request.GET.copy()
 		request.GET['date'] = dt
-		request.GET['start_time'] = st
-		request.GET['end_time'] = et
+		request.GET['start_time'] = st 
+		request.GET['end_time'] = et 
 		request.GET['activity_name'] = name
 		request.GET['max_num_attendees'] = max_num
 		request.GET['min_num_attendees'] = min_num
@@ -77,8 +69,8 @@ def create_Activity(request, location_id):
 		m.owner_id = owner
 
 		if form1.is_valid():
-			form1.save()
-			return HttpResponseRedirect(reverse("home"))
+			x=form1.save()
+			return HttpResponseRedirect(reverse("Activities:details",args=(x.pk,)))
 	else:
 		form = ActivityForm()
 	context = {}
@@ -90,28 +82,26 @@ def create_Activity(request, location_id):
 def create_Location(request):
 	if request.method == 'POST':
 		form = LocationForm(request.POST)
-
-		name = request.POST.get('location_name')
-		street = request.POST.get('address')
-		city = request.POST.get('city')
-		state = request.POST.get('state')
-		zipcode = request.POST.get('zipcode')
-		rating = request.POST.get('location_rate')
-
-		# gmaps = GoogleMaps("AIzaSyBP1fyEFwMdXYuajcnYFdt2QS--mDspV4o")
-		addr_str = street + ", " + city + ", " + state
-		# print gmaps
-		# data = gmaps.address_to_latlng(addr_str)
-
-		r = geocode(addr_str)
-		lat = r['lat']
-		lng = r['lng']
-
-		m = form.save(commit=False)
-		m.longitude = lng
-		m.latitude = lat
-
 		if form.is_valid():
+			name = request.POST.get('location_name')
+			street = request.POST.get('address')
+			city = request.POST.get('city')
+			state = request.POST.get('state')
+			zipcode = request.POST.get('zipcode')
+			rating = request.POST.get('location_rate')
+
+			# gmaps = GoogleMaps("AIzaSyBP1fyEFwMdXYuajcnYFdt2QS--mDspV4o")
+			addr_str = street + ", " + city + ", " + state
+			# print gmaps
+			# data = gmaps.address_to_latlng(addr_str)
+
+			r = geocode(addr_str)
+			lat = r['lat']
+			lng = r['lng']
+
+			m = form.save(commit=False)
+			m.longitude = lng
+			m.latitude = lat
 			location_obj = form.save()
 			location_id = location_obj.location_id
 			lng = location_obj.longitude
