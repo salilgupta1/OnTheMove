@@ -119,6 +119,14 @@ body {
   color:white;
 }
 
+.navbar-default .navbar-toggle .icon-bar {
+  background-color:white;
+}
+
+.navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
 /* Main elements end */
 
 
