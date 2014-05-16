@@ -1,9 +1,10 @@
 from django import forms
-from django.contrib.admin.widgets import AdminDateWidget
 from models import OnthemoveActivity,OnthemoveLocation
+from localflavor.us.forms import USStateField
+from localflavor.us.us_states import STATE_CHOICES
 
 class ActivityForm(forms.ModelForm):
-	activity_name = forms.CharField(max_length=100, error_messages={'required':'Please input an activity name'}, widget = forms.TextInput(attrs={'class':'form-control'}))
+	activity_name = forms.CharField(max_length=100, error_messages={'required':'Please input an activity name'})
 	BEGINNER = "Beginner"
 	INTERMEDIATE = "Intermediate"
 	ADVANCED = "Advanced"
@@ -27,12 +28,13 @@ class ActivityForm(forms.ModelForm):
 		fields = ['activity_name','start_time','end_time','max_num_attendees','min_num_attendees','skill_level','date']
 
 class LocationForm(forms.ModelForm):
-	location_name = forms.CharField(max_length=100, widget = forms.TextInput(attrs={'class':'form-control'}))
-	address = forms.CharField(max_length=100, error_messages={'required':'Please input an address'}, widget = forms.TextInput(attrs={'class':'form-control'}))
-	state = forms.CharField(max_length=2, error_messages={'required':'Please input a state'}, widget = forms.TextInput(attrs={'class':'form-control'}))
-	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'}, widget = forms.TextInput(attrs={'class':'form-control'}))
-	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'}, widget = forms.TextInput(attrs={'class':'form-control'}))
-	location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1)
+	location_name = forms.CharField(max_length=100,error_messages={'required':'Please input a name'})
+	address = forms.CharField(max_length=100, error_messages={'required':'Please input an address'})
+	#state = forms.CharField(max_length=2, error_messages={'required':'Please input a state'})
+	state = USStateField(widget=forms.Select(choices=STATE_CHOICES))
+	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'})
+	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'})
+	location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1, error_messages={'required':'Please rate this location'})
 	
 	def __init__(self,*args,**kwargs):
 		super(LocationForm,self).__init__(*args,**kwargs)
