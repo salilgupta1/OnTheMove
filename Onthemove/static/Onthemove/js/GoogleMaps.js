@@ -40,7 +40,6 @@ var GoogleMap = (function($){
 		        };
    			})(marker,content,infowindow)); 
 		}
-		console.log(map);
 	};
 	return {
 		init: function(pos,act,loc){
