@@ -57,6 +57,7 @@ def create_Activity(request, location_id):
 		st = datetime.strptime(convert_Time(start_time), "%H:%M:%S")
 		et = datetime.strptime(convert_Time(end_time), "%H:%M:%S")
 
+
 		request.GET = request.GET.copy()
 		request.GET['date'] = dt
 		request.GET['start_time'] = st
@@ -130,10 +131,10 @@ def convert_Time(time):
 	minutes = timeArray2[0]
 	ampm = timeArray2[1]
 
-	if (ampm == "PM" and hours < 12):
+	if (ampm == "PM" and int(hours) < 12):
 		hours = int(hours) + 12
-	if (ampm == "AM" and hours == 12):
-		hours = int(hours) - 12
+	if (ampm == "AM" and int(hours) == 12):
+		hours = int(hours)
 
 	return str(hours) + ":" + str(minutes) + ":" + str(0)
 
