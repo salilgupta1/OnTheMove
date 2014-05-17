@@ -6,19 +6,24 @@
 {%endblock%}
 {% block content %}
 
+<ul class="list-group" id='enroll-list-group' style ='display:none;'>
+  <li class="list-group-item list-group-item-success" id='enrollSuccess'>Thanks for enrolling! The owner has been notified!</li>
+</ul>
 <div class="modal fade" id="enroll-modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class=modal-title>Participants</h4>
-				<div class="modal-body">
-					<p >Are you sure you want to enroll in this activity?</p>
-					<div>
-						<a  class="btn btn-default" href = "{%url 'Activities:enroll'%}">Yes</a>
-						<a  class="btn btn-default" data-dismiss="modal">No </a>
-					</div>
-					<br>
+				<h4 class=modal-title>Enroll</h4>
+			</div>
+			<div class="modal-body" id = "body_modal">
+				<p>Are you sure you want to enroll in this activity?</p>
+				<div>
+					<div id="loading" style="display: none"><img src="{%static "js/ajax-loader.gif"%}" title="Loading" /></div>
 				</div>
+			</div>
+			<div class = "modal-footer">
+				<a  class="btn btn-default" data-dismiss="modal">No </a>
+				<a  class="btn btn-default" id="enroll">Yes</a>
 			</div>
 		</div>
 	</div>
@@ -114,4 +119,12 @@
 </div>
 
 {% endblock %}
-{%block jsfiles%}{%endblock%}
+{%block jsfiles%}
+	<script src = "{%static "js/jquery.cookie.js"%}"></script>
+	<script src = "{%static "Activities/js/Activities.js"%}"></script>
+	<script>
+		var csrf = $.cookie('csrftoken');
+		Activities.init();
+		Activities.enroll({"csrfmiddlewaretoken":csrf},"{{path}}");
+	</script>
+{%endblock%}

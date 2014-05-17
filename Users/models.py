@@ -13,6 +13,6 @@ class OnthemoveUser(models.Model):
 		(FEMALE,"Female"),
 		(PNT,"Prefer not to Disclose"))
 	gender = models.CharField(max_length=2,choices = GENDER,default =PNT )
-	phoneNumber = PhoneNumberField()
+	phoneNumber = PhoneNumberField(blank=True)
 	img = models.ImageField(upload_to ="static/Users/img/user_img",default="static/Users/img/user_img/default_user.jpg",null=True)
-	age = models.IntegerField(null=True)
+	age = models.IntegerField(null=True,blank=True)

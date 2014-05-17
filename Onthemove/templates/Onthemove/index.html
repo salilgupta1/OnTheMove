@@ -27,7 +27,7 @@
 	    navigator.geolocation.getCurrentPosition(
 	    	function(pos){
 		    	var act = {{activity_info|safe}};
-		    	var loc = {{location_info |safe}};
+		    	var loc = {{location_info|safe}};
 		    	GoogleMap.init(pos,act,loc);
 	    	},
 		    function(){
