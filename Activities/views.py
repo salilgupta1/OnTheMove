@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from Activities.models import OnthemoveActivity as Act, OnthemoveLocation as Loc
 from Users.models import OnthemoveUser as User
 from django.core.mail import send_mail
@@ -7,6 +7,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.urlresolvers import reverse
 from forms import ActivityForm, LocationForm
 from django.core.context_processors import csrf
+from django.template import RequestContext
 from datetime import datetime
 import urllib2, json
 
@@ -34,9 +35,31 @@ def details(request, id):
 		context['path'] = request.path
 		return render(request,"Activities/details.html", context)
 
-def create_Activity(request, location_id):
+def create_Activity(request):
 	if request.method == 'POST':
-		form = ActivityForm(request.POST)
+		actForm = ActivityForm(request.POST)
+		locForm = LocationForm(request.POST)
+
+		# check for valid location
+		if locForm.is_valid():
+			name = request.POST.get('location_name')
+			street = request.POST.get('address')
+			city = request.POST.get('city')
+			state = request.POST.get('state')
+			zipcode = request.POST.get('zipcode')
+			rating = request.POST.get('location_rate')
+
+			# get lat and long
+			addr_str = street + ", " + city + ", " + state
+			r = geocode(addr_str)
+			lat = r['lat']
+			lng = r['lng']
+
+			m = locForm.save(commit=False)
+			m.longitude = lng
+			m.latitude = lat
+			location_obj = locForm.save()
+			location_id = location_obj.location_id
 
 		date = request.POST.get('date')
 		start_time = request.POST.get('start_time')
@@ -59,60 +82,27 @@ def create_Activity(request, location_id):
 		request.GET['min_num_attendees'] = min_num
 		request.GET['skill_level'] = skill
 
-		form1 = ActivityForm(request.GET)
+		actForm1 = ActivityForm(request.GET)
 
-		m = form1.save(commit=False)
+		m = actForm1.save(commit=False)
 		location = Loc.objects.get(location_id=location_id)
 		owner = User.objects.get(id=1)  ### FIX LATER WHEN USERS ARE CREATED
 
 		m.location_id = location
 		m.owner_id = owner
 
-		if form1.is_valid():
-			x=form1.save()
+		if actForm1.is_valid():
+			x=actForm1.save()
 			return HttpResponseRedirect(reverse("Activities:details",args=(x.pk,)))
 	else:
-		form = ActivityForm()
+		actForm = ActivityForm()
+		locForm = LocationForm()
 	context = {}
 	context.update(csrf(request))
-	context['create_form'] = form
-	context['id'] = location_id
-	return render(request,"Activities/createActivity.html",context)
-
-def create_Location(request):
-	if request.method == 'POST':
-		form = LocationForm(request.POST)
-		if form.is_valid():
-			name = request.POST.get('location_name')
-			street = request.POST.get('address')
-			city = request.POST.get('city')
-			state = request.POST.get('state')
-			zipcode = request.POST.get('zipcode')
-			rating = request.POST.get('location_rate')
-
-			# gmaps = GoogleMaps("AIzaSyBP1fyEFwMdXYuajcnYFdt2QS--mDspV4o")
-			addr_str = street + ", " + city + ", " + state
-			# print gmaps
-			# data = gmaps.address_to_latlng(addr_str)
-
-			r = geocode(addr_str)
-			lat = r['lat']
-			lng = r['lng']
-
-			m = form.save(commit=False)
-			m.longitude = lng
-			m.latitude = lat
-			location_obj = form.save()
-			location_id = location_obj.location_id
-			lng = location_obj.longitude
-			lat = location_obj.latitude
-			return HttpResponseRedirect(reverse("Activities:create_Activity", args=(location_id,)))
-	else:
-		form = LocationForm()
-	context = {}
-	context.update(csrf(request))
-	context['create_form'] = form
-	return render(request,"Activities/createLocation.html",context)
+	context['act_form'] = actForm
+	context['loc_form'] = locForm
+	# context['id'] = location_id
+	return render_to_response("Activities/createActivity.html", context, RequestContext(request))
 
 def convert_Time(time):
 	timeArray = time.split(":")

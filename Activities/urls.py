@@ -8,7 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'Onthemove.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^details/(?P<id>\d+)/$',views.details, name='details'),
-    url(r'^create_activity/(?P<location_id>\d+)/$',views.create_Activity,name='create_Activity'),
-    url(r'^choose_location/$',views.create_Location,name='create_Location'),
+    url(r'^create_activity/$',views.create_Activity,name='create_Activity'),
 )
 
