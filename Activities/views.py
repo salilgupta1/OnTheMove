@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from forms import ActivityForm, LocationForm
 from django.core.context_processors import csrf
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 import urllib2, json
 
@@ -35,6 +36,7 @@ def details(request, id):
 		context['path'] = request.path
 		return render(request,"Activities/details.html", context)
 
+@login_required
 def create_Activity(request):
 	if request.method == 'POST':
 		actForm = ActivityForm(request.POST)
@@ -87,6 +89,7 @@ def create_Activity(request):
 		m = actForm1.save(commit=False)
 		location = Loc.objects.get(location_id=location_id)
 		owner = User.objects.get(id=1)  ### FIX LATER WHEN USERS ARE CREATED
+		#owner = request.user
 
 		m.location_id = location
 		m.owner_id = owner
@@ -101,7 +104,7 @@ def create_Activity(request):
 	context.update(csrf(request))
 	context['act_form'] = actForm
 	context['loc_form'] = locForm
-	# context['id'] = location_id
+
 	return render_to_response("Activities/createActivity.html", context, RequestContext(request))
 
 def convert_Time(time):
