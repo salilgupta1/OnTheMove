@@ -10,18 +10,19 @@ class UserForm(forms.ModelForm):
 		super(UserForm,self).__init__(*args,**kwargs)
 		for fields in self.fields.items():
 			fields[1].widget.attrs.update({'class':'form-control'})
+		self.fields["email"].required = True
 
 	class Meta:
 		model = User
 
 		password = forms.CharField(widget=forms.PasswordInput)
-		email = forms.EmailField()
+		email = forms.EmailField(required=True)
 
 		widgets = {
 			'password': forms.PasswordInput()
 		}
 
-		fields = ('first_name', 'last_name', 'username', 'email', 'password')
+		fields = ('first_name', 'last_name', 'email', 'password')
 
 class OnthemoveUserForm(forms.ModelForm):
 	def __init__(self,*args,**kwargs):

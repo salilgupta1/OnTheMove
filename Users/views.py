@@ -4,13 +4,13 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def create_user(request):
-	print request.user.username
+	
 	if request.method == "POST":
 		userForm = UserForm(request.POST)
 		onthemoveUserForm = OnthemoveUserForm(request.POST)
 		if userForm.is_valid() and onthemoveUserForm.is_valid():
 			email = request.POST.get('email')
-			username = request.POST.get('username')
+			username = request.POST.get('email')
 			password = request.POST.get('password')
 			first_name = request.POST.get('first_name')
 			last_name = request.POST.get('last_name')
