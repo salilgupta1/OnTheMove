@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def create_user(request):
+	print request.user.username
 	if request.method == "POST":
 		userForm = UserForm(request.POST)
 		onthemoveUserForm = OnthemoveUserForm(request.POST)

@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from models import OnthemoveUser
 from localflavor.us.models import PhoneNumberField 
 
@@ -42,3 +43,7 @@ class OnthemoveUserForm(forms.ModelForm):
 		phoneNumber = PhoneNumberField()
 		age = forms.IntegerField()
 		fields = ('gender','phoneNumber', 'age')
+
+class OnthemoveUserLoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=15,error_messages={'required':'Please input a username'}, widget = forms.TextInput(attrs={'class' : 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs = {"class":"form-control"}),error_messages = {'required':'Please Input a password'})
