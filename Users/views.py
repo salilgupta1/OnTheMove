@@ -9,11 +9,6 @@ def create_user(request):
 		userForm = UserForm(request.POST)
 		onthemoveUserForm = OnthemoveUserForm(request.POST)
 		if userForm.is_valid() and onthemoveUserForm.is_valid():
-			email = request.POST.get('email')
-			username = request.POST.get('email')
-			password = request.POST.get('password')
-			first_name = request.POST.get('first_name')
-			last_name = request.POST.get('last_name')
 			new_user = userForm.save()
 
 			#hash the password
@@ -24,6 +19,7 @@ def create_user(request):
 			onthemove_user = onthemoveUserForm.save(commit=False)
 			onthemove_user.user = new_user
 			onthemove_user.save()
+			return HttpResponseRedirect('/')
 	else:
 		userForm = UserForm()
 		onthemoveUserForm = OnthemoveUserForm()

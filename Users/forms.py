@@ -16,13 +16,13 @@ class UserForm(forms.ModelForm):
 		model = User
 
 		password = forms.CharField(widget=forms.PasswordInput)
-		email = forms.EmailField(required=True)
+		email = forms.EmailField()
 
 		widgets = {
 			'password': forms.PasswordInput()
 		}
 
-		fields = ('first_name', 'last_name', 'email', 'password')
+		fields = ('first_name', 'last_name', 'username', 'email', 'password')
 
 class OnthemoveUserForm(forms.ModelForm):
 	def __init__(self,*args,**kwargs):
