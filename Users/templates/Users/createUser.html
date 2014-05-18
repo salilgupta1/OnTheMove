@@ -2,18 +2,24 @@
 {%load staticfiles%}
 {%block title%}Choose Location{%endblock%}
 {%block cssfiles%}
-<link rel="stylesheet" type="text/css" href="{%static "Activities/css/chooseActivity.css"%}">
 {%endblock%}
 {%block content%}
 <form role="form" method="POST" action = "{%url 'Users:create_user'%}">{%csrf_token%}
-	<h1>Create a Profile</h1>
-			{% for field in form %}
-			<div class = 'form-group'>
-				<div>{{field.errors|striptags}}</div>
-	    		{{field.label_tag}}
-	    		{{field}}
-	    	</div>
-			{% endfor %}
+	<h1>Create an account</h1>
+	{% for field in userForm %}
+	<div class = 'form-group'>
+		<div>{{field.errors|striptags}}</div>
+		{{field.label_tag}}
+		{{field}}
+	</div>
+	{% endfor %}
+	{% for field in onthemoveUserForm %}
+	<div class = 'form-group'>
+		<div>{{field.errors|striptags}}</div>
+		{{field.label_tag}}
+		{{field}}
+	</div>
+	{% endfor %}
 	<input class="btn btn-default" type = 'submit' value = "Submit"/>
 </form>
 {%endblock%}
