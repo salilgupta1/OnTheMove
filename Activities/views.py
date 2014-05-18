@@ -63,40 +63,38 @@ def create_Activity(request):
 			location_obj = locForm.save()
 			location_id = location_obj.location_id
 
-		date = request.POST.get('date')
-		start_time = request.POST.get('start_time')
-		end_time = request.POST.get('end_time')
-		name = request.POST.get('activity_name')
-		max_num = request.POST.get('max_num_attendees')
-		min_num = request.POST.get('min_num_attendees')
-		skill = request.POST.get('skill_level')
+			date = request.POST.get('date')
+			start_time = request.POST.get('start_time')
+			end_time = request.POST.get('end_time')
+			name = request.POST.get('activity_name')
+			max_num = request.POST.get('max_num_attendees')
+			min_num = request.POST.get('min_num_attendees')
+			skill = request.POST.get('skill_level')
 
-		dt = datetime.strptime(date, "%m/%d/%Y")
-		st = datetime.strptime(convert_Time(start_time), "%H:%M:%S")
-		et = datetime.strptime(convert_Time(end_time), "%H:%M:%S")
+			dt = datetime.strptime(date, "%m/%d/%Y")
+			st = datetime.strptime(convert_Time(start_time), "%H:%M:%S")
+			et = datetime.strptime(convert_Time(end_time), "%H:%M:%S")
 
-		request.GET = request.GET.copy()
-		request.GET['date'] = dt
-		request.GET['start_time'] = st 
-		request.GET['end_time'] = et 
-		request.GET['activity_name'] = name
-		request.GET['max_num_attendees'] = max_num
-		request.GET['min_num_attendees'] = min_num
-		request.GET['skill_level'] = skill
+			location = Loc.objects.get(location_id=location_id)
+			owner = User.objects.get(id=1)  ### FIX LATER WHEN USERS ARE CREATED
+			#owner = request.user
 
-		actForm1 = ActivityForm(request.GET)
+			request.GET = request.GET.copy()
+			request.GET['date'] = dt
+			request.GET['start_time'] = st 
+			request.GET['end_time'] = et 
+			request.GET['activity_name'] = name
+			request.GET['max_num_attendees'] = max_num
+			request.GET['min_num_attendees'] = min_num
+			request.GET['skill_level'] = skill
+			request.GET['location_id'] = location
+			request.GET['owner_id'] = owner
 
-		m = actForm1.save(commit=False)
-		location = Loc.objects.get(location_id=location_id)
-		owner = User.objects.get(id=1)  ### FIX LATER WHEN USERS ARE CREATED
-		#owner = request.user
+			actForm1 = ActivityForm(request.GET)
 
-		m.location_id = location
-		m.owner_id = owner
-
-		if actForm1.is_valid():
-			x=actForm1.save()
-			return HttpResponseRedirect(reverse("Activities:details",args=(x.pk,)))
+			if actForm1.is_valid():
+				x=actForm1.save()
+				return HttpResponseRedirect(reverse("Activities:details",args=(x.pk,)))
 	else:
 		actForm = ActivityForm()
 		locForm = LocationForm()
