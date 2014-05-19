@@ -15,6 +15,7 @@ class OnthemoveActivity(models.Model):
 	max_num_attendees = models.IntegerField(default=1)
 	owner_id = models.ForeignKey("Users.OnthemoveUser",related_name='o+')
 	attendees = models.ManyToManyField("Users.OnthemoveUser",related_name='a+')
+	pending = models.ManyToManyField("Users.OnthemoveUser",related_name='pa+')
 	BEGINNER = "Beginner"
 	INTERMEDIATE = "Intermediate"
 	ADVANCED = "Advanced"
