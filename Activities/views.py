@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Activities.models import OnthemoveActivity as Act, OnthemoveLocation as Loc
-from Users.models import OnthemoveUser as User
+from Users.models import OnthemoveUser 
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponseRedirect,HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -10,26 +10,62 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 import urllib2, json
+from django.template.loader import get_template
+from django.template import Context
 
 # Create your views here.
+
 @login_required
 def addUser(request,activity_id,user_id):
-	pass
+	activity = Act.objects.get(activity_id=activity_id)
+	user = OnthemoveUser.objects.get(pk = user_id)
+	if request.method =='POST':
+		print 'here'
+		is_add = request.POST.get('add')
+		is_ignore = request.POST.get('ignore')
+		if is_add:
+			activity.pending.remove(user)
+			activity.attendees.add(user)
+			context = {}
+			context['added'] = user.user.first_name+" has been added to your activity"
+		elif is_ignore:
+			context['added'] = User.user.first_name+" will not be added to your activity"	
+		return render(request,"Activities/addUserSuccess.html",context)
+	else:
+		context = {}
+		context['user_name'] = user.user.first_name +" "+user.user.last_name
+		context['user_age'] = user.age
+		context['user_gender']= user.gender
+		context['activity_name'] = activity.activity_name
+		context['path']=request.path
+		context.update(csrf(request))
+		return render(request,"Activities/addUser.html",context)
 @ensure_csrf_cookie
 def details(request, id):
 	activity = Act.objects.get(activity_id=id)
 	if request.is_ajax():
 		if request.user.is_authenticated():
+			activity.pending.add(request.user.onthemoveuser)
 			userName = request.user.first_name +" "+ request.user.last_name	
+
 			subject='Request to Join Activity on OnTheMove'
 			from_email = 'noreply@onthemove.com'
+			
 			text_content = ("Hi "+ activity.owner_id.user.first_name+", "+userName+" has requested " 
-				"to join your activity "+activity.activity_name)
-			html_content = ("<div>Hi "+activity.owner_id.user.first_name+",</div>"
-			"<div><p>"+userName+" has requested to join your activity "+activity.activity_name+".</p></div>"
-			"<div> To view and add "+userName+" to your activity click the link "
-			"below <p> <a href='{% url 'Activities:addUser' id request.user.onthemoveuser.pk %}'>Accept "+userName+"</a></p></div>")
-			msg = EmailMultiAlternatives(subject, text_content, from_email, ['salil.gupta323@gmail.com'])
+				"to join your activity "+activity.activity_name+".")
+
+			html_content = get_template('Activities/enrollEmail.html').render(
+				Context({
+					"protocol":"http",
+					"domain":request.get_host(),
+					"userName":userName,
+					"owner":activity.owner_id.user.first_name,
+					"activity_name":activity.activity_name,
+					"aid":id,
+					"uid":request.user.onthemoveuser.pk
+				})
+			)
+			msg = EmailMultiAlternatives(subject, text_content, from_email,[request.user.email])## change email
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 			return HttpResponse("Thanks!")
@@ -53,6 +89,8 @@ def details(request, id):
 				context['is_max_out']=True
 			if activity.attendees.filter(pk = request.user.onthemoveuser.pk):
 				context['is_enrolled']=True
+			if activity.pending.filter(pk=request.user.onthemoveuser.pk):
+				context['is_pending']=True
 			if activity.owner_id.pk == request.user.onthemoveuser.pk:
 				context['is_owner']=True
 		return render(request,"Activities/details.html", context)
