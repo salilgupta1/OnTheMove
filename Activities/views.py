@@ -65,7 +65,7 @@ def details(request, id):
 					"uid":request.user.onthemoveuser.pk
 				})
 			)
-			msg = EmailMultiAlternatives(subject, text_content, from_email,[request.user.email])## change email
+			msg = EmailMultiAlternatives(subject, text_content, from_email,[activity.owner_id.user.email,'salil.gupta323@gmail.com'])## change email
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 			return HttpResponse("Thanks!")
