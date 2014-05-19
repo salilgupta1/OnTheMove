@@ -44,6 +44,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							<tr>
+								<td>
+									{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
+								</td>
+								<td>
+									{{owner.age}}
+								</td>
+								<td>
+									{{owner.gender}}
+								</td>
+							</tr>
 						{% for participant in attendees.all %}
 							<tr>
 								<td>{{ participant.user.first_name }} {{ participant.user.last_name }}</td>
@@ -92,8 +103,15 @@
 	  	<h3><span>{{date}}</span> at <span>{{ start_time }}</span></h3>
 	  	<h3><span>{{ address }}</span><br><span>{{city}}, {{ state }} {{ zipcode }}</span></h3>
 	  	<h3><span>Weather: Sunny</span></h3>
+	  	{%if user.is_authenticated and is_max_out%}
+	  	<p>Sorry this activity is full!</p>
+	  	{%elif user.is_authenticated and is_enrolled%}
+	  	<p>You're already enrolled</p>
+	  	{%elif user.is_authenticated and is_owner%}
+	  	<p>You're the organizer</p>
+	  	{%elif user.is_authenticated%}
 	  	<button class="btn" id="enroll-btn" data-toggle="modal" data-target="#enroll-modal">Enroll</button>
-
+	  	{%endif%}
 	  </div>
 	</div>
 
