@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from Activities.models import OnthemoveActivity as Act, OnthemoveLocation as Loc
 from Users.models import OnthemoveUser as User
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMultiAlternatives
 from django.http import HttpResponseRedirect,HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.urlresolvers import reverse
@@ -11,13 +11,29 @@ from datetime import datetime
 import urllib2, json
 
 # Create your views here.
+def accept_user(request):
+	pass
 @ensure_csrf_cookie
 def details(request, id):
 	activity = Act.objects.get(activity_id=id)
 	if request.is_ajax():
-		send_mail('Request to Join Activity on OnTheMove',"Hi "+activity.owner_id.user.first_name+",Jerry has requested to join your activity "+activity.activity_name+". Here is an overview of Jerry's profile Age: 24, Gender: Male",
-			'noreply@onthemove.com',['salil.gupta323@gmail.com',activity.owner_id.user.email],fail_silently=False)
-		return HttpResponse("The owner of the activity has been notified!")
+		if request.user.is_authenticated():
+			userName = request.user.first_name +" "+ request.user.last_name
+			#userAge = request.user.age
+			#userGen = request.user.gender
+				#send_mail('Request to Join Activity on OnTheMove',"Hi "+activity.owner_id.user.first_name+", "+userName+" has requested to join your activity "+activity.activity_name+". Here is an overview of "+userName+" profile Age: 24, Gender: Male",
+				#	'noreply@onthemove.com',['salil.gupta323@gmail.com',activity.owner_id.user.email],fail_silently=False)
+				
+			subject='Request to Join Activity on OnTheMove'
+			from_email = 'noreply@onthemove.com'
+			text_content = "Hi "+ activity.owner_id.user.first_name+", "+userName+" has requested to join your activity "+activity.activity_name+". Here is an overview of "+userName+" profile Age: 24, Gender: Male"
+			html_content = "<div>Hi "+activity.owner_id.user.first_name+",</div><div><p>"+userName+" has requested to join your activity "+activity.activity_name+".</p> Here is an overview of "+userName+"'s profile</div><div> To add "+userName+" to your activity click the link below <p> <a href=''>Accept "+userName+"</a></p></div>"
+			msg = EmailMultiAlternatives(subject, text_content, from_email, ['salil.gupta323@gmail.com'])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+			return HttpResponse("Thanks!")
+		#else:
+		#	return HttpResponse(0)
 	else:
 		context = {}
 		context["activity_name"] = activity.activity_name
@@ -32,6 +48,9 @@ def details(request, id):
 		context["attendees"] = activity.attendees
 		context["city"] = location.city
 		context['path'] = request.path
+		if activity.attendees.count()== activity.max_num_attendees:
+			context['max_out']=True
+		if activity.attendees.filter()
 		return render(request,"Activities/details.html", context)
 
 def create_Activity(request, location_id):
