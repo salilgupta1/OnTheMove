@@ -4,20 +4,24 @@
 {%block cssfiles%}
 <link rel='stylesheet' type='text/css' href = "{%static "Activities/css/activityPage.css"%}"/>
 {%endblock%}
-
+{%block userImg%}
+    <a class = "col-xs-1 ava-btn" href = "#my-right-menu" id = "attendee">
+      <span class = "glyphicon glyphicon-user"></span>
+    </a>
+{%endblock%}
 {%block attendees%}
  <nav id="my-right-menu">
           <ul>
-          	<li><a>Home</a></li>
+          	<li><a>home</a></li>
+		    <li>
+      			<a>
+      				{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
+      			</a>
+      		</li>
           	{% for participant in attendees.all %}
 				<li>
 					<a>
 						{{ participant.user.first_name }} {{ participant.user.last_name }}
-
-						{{loop.index}}
-							{{ participant.age }}
-					
-							{{ participant.gender }}
 					</a>
 				</li>
 			{% endfor %}
@@ -49,74 +53,12 @@
 		</div>
 	</div>
 </div>
-
-<div class="modal fade" id="user-modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class=modal-title>Participants</h4>
-				<div class="modal-body">
-					<table class='table'>
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Age</th>
-								<th>Gender</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
-								</td>
-								<td>
-									{{owner.age}}
-								</td>
-								<td>
-									{{owner.gender}}
-								</td>
-							</tr>
-						{% for participant in attendees.all %}
-							<tr>
-								<td>{{ participant.user.first_name }} {{ participant.user.last_name }}</td>
-								<td>
-									{{ participant.age }}
-								</td>
-								<td>
-									{{ participant.gender }}
-								</td>
-							</tr>
-						{% endfor %}
-						</tbody>
-						<!-- 
-						<tbody>
-							<tr>
-								<td>Salil Gupta</td>
-								<td>21</td>
-								<td>M</td>
-							</tr>
-							<tr>
-								<td>Greg Chan</td>
-								<td>20</td>
-								<td>M</td>
-							</tr>
-						</tbody> -->
-					</table>
-					<div class="pull-right">
-						<button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="container-fluid">
 	<div class="row border-div">
 
 	  <div class="col-xs-6">
 	  	<h1>{{ activity_name }}</h1>
-	  	<img class="act-logo" src="http://livingstontownship.org/sylsprograms/wp-content/uploads/2013/07/tennis-logo.jpg">
+	  	<img class="act-logo" src="{%static "img/defaultActivity.png"%}">
 	  	<h3>{{ skill }}</h3>
 	  </div>
 
@@ -148,25 +90,17 @@
 			<span class="fa icon-star rating"></span>
 			<span class="fa icon-star rating"></span>
 			<span class="fa icon-star-empty rating"></span>
-			{{ rating }}
+			<span>Facility Rating: {{ rating }}</span>
 		</div>
 		<div class="img-div">
 			<img class="loc-img" src="http://fitrec.mccormick.northwestern.edu/wordpress/http://fitrec.mccormick.northwestern.edu/wordpress/wp-content/uploads/2010/07/CombeTennisCourts450x300.jpg">
 		</div>
 	</div>
-
-	<!-- <div class="row">
-		<div class="text-center">
-			<button class="btn btn-lg clear-btn-white" data-toggle="modal" data-target="#user-modal">Participants</button>
-		</div>
-	</div> -->
 </div>
-
 {% endblock %}
 {%block jsfiles%}
 	<script src = "{%static "js/jquery.cookie.js"%}"></script>
 	<script src = "{%static "Activities/js/Activities.js"%}"></script>
-	<script src = "{%static ""}"></script>
 	<script>
 		var csrf = $.cookie('csrftoken');
 		Activities.init();
