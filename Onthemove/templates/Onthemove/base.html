@@ -30,34 +30,6 @@
 <body>
 
   <!-- Wrap all page content here -->
-
-  <!-- <div id="wrap"> -->
-
-    <!-- Fixed navbar -->
-    <!-- <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">On the Move</a>
-        </div>
-
-        <nav class="collapse navbar-collapse" id="btn-navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav navbar-right">
-            {%if user.is_authenticated%}
-            <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
-            <!--li><a href="#">My Profile</a></li>
-            <li><a href="#">My Activities</a></li-->
-            <!-- <li><a href="{%url 'Users:logout'%}">Logout</a></li>
-            {%else%}
-            <li><a href="{%url 'Users:login'%}">Login</a></li>
-            <li><a href="{%url 'Users:create_user'%}">Register</a></li>
-            {%endif%}
-          </ul> -->
 <div id="wrap">
 
   <!-- Fixed navbar -->
@@ -72,14 +44,8 @@
             On The Move
           </a>
         </div>
-        <a class = "col-xs-1 ava-btn" href = "#my-right-menu" id = "attendee">
-          <span class = "glyphicon glyphicon-user"></span>
-        </a>
-        <!-- <div id = "user-log" style="float:right;">
-          {%if user.is_authenticated%}
-            <p>Hi {{ user.first_name}}</p>
-          {%endif%}
-        </div> -->
+        {%block userImg%}
+        {%endblock%}
       </div>
 
       <nav id="my-left-menu">
@@ -87,8 +53,8 @@
           <li><a href="/">Home</a></li>
           {%if user.is_authenticated%}
             <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
-            <!--li><a href="#">My Profile</a></li>
-            <li><a href="#">My Activities</a></li-->
+            <!--li><a href="#">My Profile</a></li-->
+            <li><a href="{%url 'Users:my_activities'%}">My Activities</a></li>
             <li><a href="{%url 'Users:logout'%}">Logout</a></li>
             {%else%}
             <li><a href="{%url 'Users:login'%}">Login</a></li>
@@ -109,14 +75,6 @@
   </main>
 
 </div>
-
-  <!-- <div id="footer">
-    <div class="container text-center">
-      <p>On the Move - Northwestern University - EECS 394</p>
-      {% block footer %}{% endblock %}
-    </div>
-  </div> -->
-
   {%block jsfiles%}
 
   {%endblock%}
@@ -130,16 +88,6 @@
   $("#my-right-menu").mmenu({
     position:'right'
   });
-
-  var l = location.pathname;
-  if(l.indexOf("/details") >= 0){
-    $("#attendee").show();
-    $("#user-log").hide();
-  }
-  else{
-    $("#attendee").hide();
-    $("#user-log").show();
-  }
 </script>
 
 </html>
