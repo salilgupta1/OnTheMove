@@ -8,9 +8,16 @@
 <link rel="stylesheet" type="text/css" href="{%static "Activities/css/chooseActivity.css"%}">
 {%endblock%}
 {%block content%}
-<form role="form" method="POST" action = "{%url 'Activities:create_Activity' id%}">{%csrf_token%}
+<form role="form" method="POST" action = "{%url 'Activities:create_Activity' %}">{%csrf_token%}
 	<h1>Create an Activity</h1>
-			{% for field in create_form %}
+			{% for field in act_form %}
+			<div class = 'form-group'>
+				<div>{{field.errors|striptags}}</div>
+	    		{{field.label_tag}}
+	    		{{field}}
+	    	</div>
+			{% endfor %}
+			{% for field in loc_form %}
 			<div class = 'form-group'>
 				<div>{{field.errors|striptags}}</div>
 	    		{{field.label_tag}}
@@ -29,6 +36,8 @@
 <script>
 	$(function(){
 		$('#datepicker').datepicker();
+		$('#datepicker').val(getToday());
+
 		var endInput = $("#end-time-picker").pickatime({
 		  clear: ''
 		});
@@ -90,6 +99,16 @@
 	    hour: hour,
 	    ampm: ampm
 	  };
+	}
+
+	function getToday() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yy = today.getFullYear();
+		console.log(yy);
+
+		return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
 	}
 
 </script>

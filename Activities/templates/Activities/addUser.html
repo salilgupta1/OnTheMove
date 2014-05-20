@@ -1,0 +1,37 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}Add User{%endblock%}
+{%block cssfiles%}
+<link rel='stylesheet' type='text/css' href = "{%static "Activities/css/activityPage.css"%}"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+
+	<div class="row border-div">
+	 <div class=' col-xs-12'>
+	 	<h4>Add to {{activity_name}}</h4>
+	 </div>
+	  <div class="col-xs-6">
+	  	<h3>{{ user_name }}</h3>
+	  	<img class="act-logo" src="{%static "img/person_placeholder.png"%}">
+	  </div>
+
+	  <div class="col-xs-6">
+	  	<h3><span>Age</span> : <span>{{user_age}}</span></h3>
+	  	<h3><span>Gender</span> : <span>{{user_gender}}</span></h3>
+	  </div>
+	</div>
+
+	<div class="row">
+		<div class="text-center">
+			<form method='POST' action = {{path}}>{%csrf_token%}
+				<button type='submit' class="btn btn-lg clear-btn-white" name='add' value ='add'>Add</button>
+				<button type ='submit' class="btn btn-lg clear-btn-white" name='ignore' value = 'ignore'>Ignore</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+
+

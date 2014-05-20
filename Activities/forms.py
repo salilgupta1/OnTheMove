@@ -34,7 +34,7 @@ class LocationForm(forms.ModelForm):
 	state = USStateField(widget=forms.Select(choices=STATE_CHOICES))
 	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'})
 	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'})
-	location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1, error_messages={'required':'Please rate this location'})
+	# location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1, error_messages={'required':'Please rate this location'})
 	
 	def __init__(self,*args,**kwargs):
 		super(LocationForm,self).__init__(*args,**kwargs)
@@ -43,4 +43,4 @@ class LocationForm(forms.ModelForm):
 
 	class Meta:
 		model = OnthemoveLocation
-		fields = ['location_name','address','city','state','zipcode','location_rate']
+		fields = ['location_name','address','city','state','zipcode']

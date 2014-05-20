@@ -43,7 +43,15 @@
 
         <nav class="collapse navbar-collapse" id="btn-navbar-collapse" role="navigation">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{%url 'Activities:create_Location'%}">Create Activity</a></li>
+            {%if user.is_authenticated%}
+            <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
+            <!--li><a href="#">My Profile</a></li>
+            <li><a href="#">My Activities</a></li-->
+            <li><a href="{%url 'Users:logout'%}">Logout</a></li>
+            {%else%}
+            <li><a href="{%url 'Users:login'%}">Login</a></li>
+            <li><a href="{%url 'Users:create_user'%}">Register</a></li>
+            {%endif%}
           </ul>
         </div>
       </nav>
