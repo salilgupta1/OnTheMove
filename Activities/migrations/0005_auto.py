@@ -29,7 +29,7 @@ class Migration(SchemaMigration):
             'activity_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'activity_img': ('django.db.models.fields.files.ImageField', [], {'default': "'static/Activities/img/activity/default_act.jpg'", 'max_length': '100'}),
             'activity_name': ('django.db.models.fields.TextField', [], {'max_length': '40'}),
-            'attendees': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'a+'", 'symmetrical': 'False', 'to': u"orm['Users.OnthemoveUser']"}),
+            'attendees': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'a+'", 'blank': 'True', 'to': u"orm['Users.OnthemoveUser']"}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'end_time': ('django.db.models.fields.TimeField', [], {'null': 'True'}),
             'is_closed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -37,7 +37,7 @@ class Migration(SchemaMigration):
             'max_num_attendees': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'min_num_attendees': ('django.db.models.fields.IntegerField', [], {'default': '1', 'null': 'True'}),
             'owner_id': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'o+'", 'to': u"orm['Users.OnthemoveUser']"}),
-            'pending': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'pa+'", 'symmetrical': 'False', 'to': u"orm['Users.OnthemoveUser']"}),
+            'pending': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'pa+'", 'blank': 'True', 'to': u"orm['Users.OnthemoveUser']"}),
             'skill_level': ('django.db.models.fields.TextField', [], {'default': "'Beginner'", 'max_length': '2'}),
             'start_time': ('django.db.models.fields.TimeField', [], {})
         },

@@ -1,5 +1,23 @@
 import Activities.search
 import config, json
+def get_rating(name,lng,lat):
+	host = 'api.yelp.com'
+	path = '/v2/search'
+	consumer_key = config.keys['YELP_CONSUMER']
+	consumer_secret = config.keys['YELP_CONSUMER_SECRET']
+	token_key = config.keys['YELP_TOKEN']
+	token_secret = config.keys['YELP_TOKEN_SECRET']
+	
+	url_params = { 'term':name, 'll':str(lat)+','+str(lng)}
+
+	data = Activities.search.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
+
+	#print data
+	business_data = data['businesses']
+	#print business_data
+	#print business_data[0]['rating']
+	return business_data[0]['rating']
+
 
 def search_location():
 	host = 'api.yelp.com'

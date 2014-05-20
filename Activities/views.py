@@ -12,6 +12,7 @@ from datetime import datetime
 import urllib2, json
 from django.template.loader import get_template
 from django.template import Context
+from Activities import yelp_api
 
 # Create your views here.
 
@@ -116,7 +117,17 @@ def create_Activity(request):
 			m = locForm.save(commit=False)
 			m.longitude = lng
 			m.latitude = lat
+			loc_name = m.location_name
+			rating = yelp_api.get_rating(loc_name,lng,lat)
+			m.location_rate = rating
 			location_obj = locForm.save()
+			# loc_name = location_obj.location_name
+			# loc_lng = location_obj.longitude
+			# loc_lat = location_obj.latitude
+			# rating = yelp_api.get_rating(loc_name,loc_lng,loc_lat)
+			# location_obj.location_rate = rating
+			# locForm.save()
+
 
 			date = request.POST.get('date')
 			start_time = request.POST.get('start_time')
