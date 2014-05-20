@@ -13,7 +13,8 @@ var Activities = (function($){
 					$("#enroll-list-group").show();
 					$("#enrollSuccess").fadeIn('3000');
 					$('#enrollSuccess').delay(3000).fadeOut('3000');
-					
+					$('#enroll-btn').hide();
+					$('#enrollStatus').html('<p>Your enrollment is pending!</p>');
 				},
 				error:function(error){
 					console.log(error);
