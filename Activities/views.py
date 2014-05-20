@@ -79,6 +79,7 @@ def details(request, id):
 		context["date"] = activity.date.strftime('%m/%d/%Y') #not work
 		context["address"] = location.address
 		context["zipcode"] = location.zipcode
+		context["rating"] = location.location_rate
 		context["state"] = location.state
 		context["skill"] = activity.skill_level
 		context["attendees"] = activity.attendees
@@ -121,12 +122,7 @@ def create_Activity(request):
 			rating = yelp_api.get_rating(loc_name,lng,lat)
 			m.location_rate = rating
 			location_obj = locForm.save()
-			# loc_name = location_obj.location_name
-			# loc_lng = location_obj.longitude
-			# loc_lat = location_obj.latitude
-			# rating = yelp_api.get_rating(loc_name,loc_lng,loc_lat)
-			# location_obj.location_rate = rating
-			# locForm.save()
+			
 
 
 			date = request.POST.get('date')
