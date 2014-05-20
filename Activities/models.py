@@ -13,9 +13,9 @@ class OnthemoveActivity(models.Model):
 	activity_img = models.ImageField(upload_to ="static/Activities/img/activity",default="static/Activities/img/activity/default_act.jpg")
 	min_num_attendees = models.IntegerField(null=True, default=1)
 	max_num_attendees = models.IntegerField(default=1)
-	owner_id = models.ForeignKey("Users.OnthemoveUser",related_name='o+')
-	attendees = models.ManyToManyField("Users.OnthemoveUser",related_name='a+',blank = True)
-	pending = models.ManyToManyField("Users.OnthemoveUser",related_name='pa+',blank=True)
+	owner_id = models.ForeignKey("Users.OnthemoveUser",related_name='o')
+	attendees = models.ManyToManyField("Users.OnthemoveUser",related_name='a',blank = True)
+	pending = models.ManyToManyField("Users.OnthemoveUser",related_name='pa',blank=True)
 	BEGINNER = "Beginner"
 	INTERMEDIATE = "Intermediate"
 	ADVANCED = "Advanced"
