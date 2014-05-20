@@ -14,6 +14,8 @@
 <!--link type="text/css" rel="stylesheet" href="/static/css/bootstrap-theme-3.0.0.min.css" /-->
 <link rel='stylesheet' type='text/css' href = "{%static "css/bootstrap.min.css"%}"/>
 <link rel='stylesheet' type='text/css' href = "{%static "Onthemove/css/base.css"%}"/>
+<link rel='stylesheet' type='text/css' href = "{%static "Onthemove/css/jquery.mmenu.all.css"%}"/>
+
 {%block cssfiles%}{%endblock%}
 <!-- /styles -->
 
@@ -21,15 +23,18 @@
 <!-- scripts -->
 <script src = "{%static "js/jquery-1.11.0.js"%}"></script>
 <script src = "{%static "js/bootstrap.min.js"%}"></script>
+<script src = "{%static "Onthemove/js/jquery.mmenu.min.all.js"%}"></script>
+
 <!-- /scripts -->
 </head>
 <body>
 
   <!-- Wrap all page content here -->
-  <div id="wrap">
+
+  <!-- <div id="wrap"> -->
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -47,28 +52,57 @@
             <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
             <!--li><a href="#">My Profile</a></li>
             <li><a href="#">My Activities</a></li-->
+            <!-- <li><a href="{%url 'Users:logout'%}">Logout</a></li>
+            {%else%}
+            <li><a href="{%url 'Users:login'%}">Login</a></li>
+            <li><a href="{%url 'Users:create_user'%}">Register</a></li>
+            {%endif%}
+          </ul> -->
+<div id="wrap">
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div>
+        <a class = "col-xs-1 ava-btn" href = "#my-left-menu">
+          <span class = "glyphicon glyphicon-align-justify"></span>
+        </a>
+        <div class = "col-xs-10" id = "onthemove">
+          <a href="/">
+            On The Move
+          </a>
+        </div>
+        <a class = "col-xs-1 ava-btn" href = "#my-right-menu" id = "attendee">
+          <span class = "glyphicon glyphicon-user"></span>
+        </a>
+      </div>
+      <nav id="my-left-menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          {%if user.is_authenticated%}
+            <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
+            <!--li><a href="#">My Profile</a></li>
+            <li><a href="#">My Activities</a></li-->
             <li><a href="{%url 'Users:logout'%}">Logout</a></li>
             {%else%}
             <li><a href="{%url 'Users:login'%}">Login</a></li>
             <li><a href="{%url 'Users:create_user'%}">Register</a></li>
             {%endif%}
-          </ul>
-        </div>
+        </ul>
       </nav>
       {%block attendees%}{%endblock%}
-
+     
     </div>
-
-
-    <!-- Begin page content -->
-    <main id="content" role="main" class="container">
-
-
-      {% block content %}{% endblock %}
-      
-    </main>
-
   </div>
+
+  <!-- Begin page content -->
+  <main id="content" role="main" class="container">
+
+    {% block content %}{% endblock %}
+    
+  </main>
+
+</div>
 
   <div id="footer">
     <div class="container text-center">
@@ -82,5 +116,23 @@
   {%endblock%}
 
 </body>
+
+<script>
+  $("#my-left-menu").mmenu({
+    position:'left'
+  });
+  $("#my-right-menu").mmenu({
+    position:'right'
+  });
+
+  var l = location.pathname;
+  if(l.indexOf("/details") >= 0){
+    $("#attendee").show();
+  }
+  else{
+    $("#attendee").hide();
+  }
+</script>
+
 </html>
 

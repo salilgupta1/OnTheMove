@@ -4,8 +4,25 @@
 {%block cssfiles%}
 <link rel='stylesheet' type='text/css' href = "{%static "Activities/css/activityPage.css"%}"/>
 {%endblock%}
+
 {%block attendees%}
-	
+ <nav id="my-right-menu">
+          <ul>
+          	<li><a>Home</a></li>
+          	{% for participant in attendees.all %}
+				<li>
+					<a>
+						{{ participant.user.first_name }} {{ participant.user.last_name }}
+
+						{{loop.index}}
+							{{ participant.age }}
+					
+							{{ participant.gender }}
+					</a>
+				</li>
+			{% endfor %}
+          </ul>
+        </nav>  
 {%endblock%}
 
 {% block content %}
