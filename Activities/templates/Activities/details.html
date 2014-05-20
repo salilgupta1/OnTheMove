@@ -107,11 +107,11 @@
 		  	{%if user.is_authenticated and is_max_out%}
 		  	<p>Sorry this activity is full!</p>
 		  	{%elif user.is_authenticated and is_enrolled%}
-		  	<p>You're already enrolled</p>
+		  	<p>You are already enrolled</p>
 		  	{%elif user.is_authenticated and is_owner%}
-		  	<p>You're the organizer</p>
+		  	<p>You are the organizer</p>
 		  	{%elif user.is_authenticated and is_pending%}
-		  	<p>You're enrollment is pending!</p>
+		  	<p>Your enrollment is pending!</p>
 		  	{%elif user.is_authenticated%}
 		  	<button class="btn" id="enroll-btn" data-toggle="modal" data-target="#enroll-modal">Enroll</button>
 		  	{%endif%}
