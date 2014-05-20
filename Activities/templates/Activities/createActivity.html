@@ -36,6 +36,8 @@
 <script>
 	$(function(){
 		$('#datepicker').datepicker();
+		$('#datepicker').val(getToday());
+
 		var endInput = $("#end-time-picker").pickatime({
 		  clear: ''
 		});
@@ -97,6 +99,16 @@
 	    hour: hour,
 	    ampm: ampm
 	  };
+	}
+
+	function getToday() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yy = today.getFullYear();
+		console.log(yy);
+
+		return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
 	}
 
 </script>

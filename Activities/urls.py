@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^details/(?P<id>\d+)/$',views.details, name='details'),
     url(r'^create_activity/$',views.create_Activity,name='create_Activity'),
+    url(r'^addUser/(?P<activity_id>\d+)/(?P<user_id>\d+)$',views.addUser,name='addUser')
 )
 

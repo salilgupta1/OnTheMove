@@ -49,6 +49,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = "/users/login"
+LOGIN_REDIRECT_URL = "/"
+
 STATIC_ROOT ='staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS= (

@@ -1,0 +1,25 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}Choose Location{%endblock%}
+{%block cssfiles%}
+{%endblock%}
+{%block content%}
+<form role="form" method="POST" action = "{%url 'Users:create_user'%}">{%csrf_token%}
+	<h1>Register</h1>
+	{% for field in userForm %}
+	<div class = 'form-group'>
+		<div>{{field.errors|striptags}}</div>
+		{{field.label_tag}}
+		{{field}}
+	</div>
+	{% endfor %}
+	{% for field in onthemoveUserForm %}
+	<div class = 'form-group'>
+		<div>{{field.errors|striptags}}</div>
+		{{field.label_tag}}
+		{{field}}
+	</div>
+	{% endfor %}
+	<input class="btn btn-default" type = 'submit' value = "Submit"/>
+</form>
+{%endblock%}
