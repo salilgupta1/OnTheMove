@@ -75,7 +75,13 @@
         <a class = "col-xs-1 ava-btn" href = "#my-right-menu" id = "attendee">
           <span class = "glyphicon glyphicon-user"></span>
         </a>
+        <div id = "user-log" style="float:right;">
+          {%if user.is_authenticated%}
+            <p>Hi {{ user.first_name}}</p>
+          {%endif%}
+        </div>
       </div>
+
       <nav id="my-left-menu">
         <ul>
           <li><a href="/">Home</a></li>
@@ -128,9 +134,11 @@
   var l = location.pathname;
   if(l.indexOf("/details") >= 0){
     $("#attendee").show();
+    $("#user-log").hide();
   }
   else{
     $("#attendee").hide();
+    $("#user-log").show();
   }
 </script>
 
