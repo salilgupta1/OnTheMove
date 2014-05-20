@@ -1,4 +1,5 @@
 from common import *
+import config
 DEBUG = False
 TEMPLATE_DEBUG = False
 

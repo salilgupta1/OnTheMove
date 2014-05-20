@@ -92,6 +92,68 @@ body {
   height:475px;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.btn-default{
+   float: right;
+   margin-right: 9px;
+   padding-top: 2px;
+   padding-bottom: 2px;
+}
+#loading{
+  margin-right: auto;
+  margin-left: auto;
+  width:16px;
+}
+
+#enroll-modal{
+  height:300px;
+}
+#body_modal{
+  height:90px;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>li>a:hover {
+  color:white;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color:white;
+}
+
+.navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-header {
+  width: 100%;
+}
+
+.navbar-toggle {
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#onthemove{
+  text-align:center; 
+  padding-top: 9px;
+}
+
+#onthemove a{
+  font-size:20px; 
+  color:#FFFFFF;
+  text-decoration: none;
+}
+
+.ava-btn{
+  font-size: 25px;
+  padding:8px;
+  color:#FFFFFF;
+}
+
 /* Main elements end */
 
 

@@ -1,0 +1,8 @@
+<div>
+	Hi {{owner}},
+</div>
+<div>
+	<p>{{userName}} has requested to join your activity {{activity_name}}.</p>
+	<p>To view and add {{userName}} to your activity click the link below."</p>
+	{{ protocol }}://{{ domain }}{% url 'Activities:addUser' activity_id=aid user_id=uid %}
+</div>

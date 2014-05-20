@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.home_page, name='home'),
     url(r'^activities/',include('Activities.urls',namespace='Activities')),
-    #url(r'^my/',include('Users.urls',namespace='Users')),
+    url(r'^users/',include('Users.urls',namespace='Users')),
 )
