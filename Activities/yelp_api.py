@@ -16,7 +16,12 @@ def get_rating(name,lng,lat):
 	business_data = data['businesses']
 	#print business_data
 	#print business_data[0]['rating']
-	return business_data[0]['rating']
+	if len(business_data) == 0:
+		return -1
+	rating = business_data[0]['rating']
+	if rating is None:
+		return -1
+	return rating
 
 
 def search_location():
