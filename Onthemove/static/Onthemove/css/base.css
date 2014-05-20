@@ -127,6 +127,33 @@ body {
   background-color: transparent;
 }
 
+.navbar-header {
+  width: 100%;
+}
+
+.navbar-toggle {
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#onthemove{
+  text-align:center; 
+  padding-top: 9px;
+}
+
+#onthemove a{
+  font-size:20px; 
+  color:#FFFFFF;
+  text-decoration: none;
+}
+
+.ava-btn{
+  font-size: 25px;
+  padding:8px;
+  color:#FFFFFF;
+}
+
 /* Main elements end */
 
 
