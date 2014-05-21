@@ -5,14 +5,14 @@
 <link rel='stylesheet' type='text/css' href = "{%static "Activities/css/activityPage.css"%}"/>
 {%endblock%}
 {%block userImg%}
-    <a class = "col-xs-1 ava-btn" href = "#my-right-menu" id = "attendee">
+    <a class = "col-xs-2 ava-btn" href = "#my-right-menu" id = "attendee">
       <span class = "glyphicon glyphicon-user"></span>
     </a>
 {%endblock%}
+{%block login%}{%endblock%}
 {%block attendees%}
  <nav id="my-right-menu">
           <ul>
-          	<li><a>home</a></li>
 		    <li>
       			<a>
       				{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)

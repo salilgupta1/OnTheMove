@@ -46,22 +46,22 @@
         </div>
         {%block userImg%}
         {%endblock%}
-        <a class = "col-xs-2 ava-btn" href = "#my-right-menu" id = "attendee">
-          <span class = "glyphicon glyphicon-user"></span>
-        </a>
-        <div class ="col-xs-2" id = "user-log" style="float:right;">
-          {%if user.is_authenticated%}
-            <p>{{ user.first_name}}</p>
-          {%endif%}
-        </div>
+    
+        {%block login%}
+          <div class ="col-xs-2" id = "user-log" style="float:right;">
+            {%if user.is_authenticated%}
+              <p>{{ user.first_name}}</p>
+            {%endif%}
+          </div>
+        {%endblock%}
       </div>
 
       <nav id="my-left-menu">
         <ul>
           {%if user.is_authenticated%}
             <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
-            <!--li><a href="#">My Profile</a></li>
-            <li><a href="{%url 'Users:my_activities'%}">My Activities</a></li-->
+            <!--li><a href="#">My Profile</a></li-->
+            <li><a href="{%url 'Users:my_activities'%}">My Activities</a></li>
             <li><a href="{%url 'Users:logout'%}">Logout</a></li>
             {%else%}
             <li><a href="{%url 'Users:login'%}">Login</a></li>
