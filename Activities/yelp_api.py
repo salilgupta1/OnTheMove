@@ -1,13 +1,20 @@
 import Activities.search
-import config, json
-def get_rating(name,lng,lat):
-	host = 'api.yelp.com'
-	path = '/v2/search'
+import json,os
+try:
+	import config
 	consumer_key = config.keys['YELP_CONSUMER']
 	consumer_secret = config.keys['YELP_CONSUMER_SECRET']
 	token_key = config.keys['YELP_TOKEN']
 	token_secret = config.keys['YELP_TOKEN_SECRET']
-	
+except:
+	consumer_key = os.environ['YELP_CONSUMER']
+	consumer_secret = os.environ['YELP_CONSUMER_SECRET']
+	token_key = os.environ['YELP_TOKEN']
+	token_secret = os.environ['YELP_TOKEN_SECRET']
+
+def get_rating(name,lng,lat):
+	host = 'api.yelp.com'
+	path = '/v2/search'	
 	url_params = { 'term':name, 'll':str(lat)+','+str(lng)}
 
 	data = Activities.search.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
@@ -27,10 +34,10 @@ def get_rating(name,lng,lat):
 def search_location():
 	host = 'api.yelp.com'
 	path = '/v2/search'
-	consumer_key = config.keys['YELP_CONSUMER']
-	consumer_secret = config.keys['YELP_CONSUMER_SECRET']
-	token_key = config.keys['YELP_TOKEN']
-	token_secret = config.keys['YELP_TOKEN_SECRET']
+	#consumer_key = config.keys['YELP_CONSUMER']
+	#consumer_secret = config.keys['YELP_CONSUMER_SECRET']
+	#token_key = config.keys['YELP_TOKEN']
+	#token_secret = config.keys['YELP_TOKEN_SECRET']
 	
 	url_params = { 'term':'bars', 'location':'San Francisco' }
 
@@ -52,10 +59,10 @@ def get_business_info(businessID, latitude, longitude):
 
 	host = 'api.yelp.com'
 	path = '/v2/search'
-	consumer_key = config.keys['YELP_CONSUMER']
-	consumer_secret = config.keys['YELP_CONSUMER_SECRET']
-	token_key = config.keys['YELP_TOKEN']
-	token_secret = config.keys['YELP_TOKEN_SECRET']
+	#consumer_key = config.keys['YELP_CONSUMER']
+	#consumer_secret = config.keys['YELP_CONSUMER_SECRET']
+	#token_key = config.keys['YELP_TOKEN']
+	#token_secret = config.keys['YELP_TOKEN_SECRET']
 
 	url_params = { 'id': businessID }
 
