@@ -16,28 +16,28 @@ body {
 }
 
 /* Set the fixed height of the footer here */
-#footer {
+/*#footer {
   height: 60px;
   background-color: #f5f5f5;
 }
-
+*/
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
 #wrap > .container {
-  padding: 60px 15px 0;
+  padding: 0px 15px 0;
 }
 .container .credit {
   margin: 20px 0;
   height: auto;
 }
 
-#footer > .container {
+/*#footer > .container {
   padding-left: 15px;
   padding-right: 15px;
-}
+}*/
 
 code {
   font-size: 80%;
@@ -155,12 +155,10 @@ body {
 }
 
 #user-log{
-  padding-top:15px;
-  font-size: 12px;
+  padding-top:13px;
+  font-size: 16px;
   color:#FFFFFF;
-/*  text-decoration: none;
-  padding-left: 10px;
-  padding-right:10px;*/
+  text-decoration: none;
 }
 
 /* Main elements end */
