@@ -1,0 +1,45 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}My Activities{%endblock%}
+{%block cssfiles%}
+<link rel='stylesheet' type='text/css' href = "{%static "Users/css/myActivity.css"%}"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<h4>My Activities</h4>
+	<div class="row border-div">
+		<div class=' col-xs-12'>
+		 	<table class='table'>
+		 		<thead>
+			 		<tr>
+					  <th><h3>Activity</h3></th>
+					  <th><h3>Status</h3></th> 
+					  <th></th>
+					</tr>
+				</thead>
+				{% for enroll in enrolled%}
+					<tr>
+						<td><a href="{%url 'Activities:details' enroll.activity_id%}">{{enroll.activity_name}}</a></td>
+						<td>Enrolled</td>
+						<td></td>
+					</tr>
+				{%endfor%}
+				{% for pendings in pending%}
+					<tr>
+						<td><a href="{%url 'Activities:details' pendings.activity_id%}">{{pendings.activity_name}}</a></td>
+						<td>Pending</td>
+						<td></td>
+					</tr>
+				{%endfor%}
+				{% for owner in own%}
+					<tr>
+						<td><a href="{%url 'Activities:details' owner.activity_id%}">{{owner.activity_name}}</a></td>
+						<td>Organizer</td>
+						<td><a href="{%url 'Users:my_participants' owner.activity_id%}">Participants</a></td>
+					</tr>
+				{%endfor%}
+		 	</table>
+		</div>
+	</div>
+</div>
+{%endblock%}
