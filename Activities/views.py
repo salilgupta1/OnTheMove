@@ -86,6 +86,7 @@ def details(request, id):
 		context["city"] = location.city
 		context['owner'] = activity.owner_id
 		context['path'] = request.path
+		context['img_url'] = location.location_img_url
 		if request.user.is_authenticated():
 			if activity.attendees.count()== activity.max_num_attendees:
 				context['is_max_out']=True
@@ -119,8 +120,20 @@ def create_Activity(request):
 			m.longitude = lng
 			m.latitude = lat
 			loc_name = m.location_name
-			rating = yelp_api.get_rating(loc_name,lng,lat)
-			m.location_rate = rating
+			rating,img_url = yelp_api.get_yelp_data(loc_name,lng,lat)
+
+
+			if rating == -1:
+				m.location_rate = "no rating available"
+			else:
+				m.location_rate = rating
+
+			
+			if img_url == -1:
+				m.location_img_url = "http://www.mountainmansocialmedia.com/_site/wp-content/themes/juiced/img/thumbnail-default.jpg"
+			else:
+				m.location_img_url = img_url
+			
 			location_obj = locForm.save()
 			
 
