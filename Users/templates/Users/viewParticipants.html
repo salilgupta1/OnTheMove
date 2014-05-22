@@ -1,0 +1,51 @@
+{%extends "Onthemove/base.html"%}
+{%load staticfiles%}
+{%block title%}Activity Participants{%endblock%}
+{%block cssfiles%}
+<link rel='stylesheet' type='text/css' href = "{%static "Users/css/myActivity.css"%}"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<h4>{{name}}</h4>
+	<div class="row border-div">
+		<div class=' col-xs-12'>
+			{%if attendees|length_is:"0"%}
+				<h3>There are no participants</h3>
+			{%else%}
+		 	<table class='table'>
+		 		<thead>
+			 		<tr>
+					  <th><h3>Participants</h3></th>
+					</tr>
+				</thead>
+				{% for a in attendees%}
+					<tr>
+						<td>{{a.user.first_name}} {{a.user.last_name}}</td>
+					</tr>
+				{%endfor%}
+		 	</table>
+		 	{%if success%}
+			<ul class="list-group">
+			  <li class="list-group-item list-group-item-success">{{success}}</li>
+			</ul>
+		 	{%elif error_message%}
+			<ul class="list-group">
+			  <li class="list-group-item list-group-item-warning">{{error_message}}</li>
+			</ul>
+		 	{%endif%}
+		 	<form action ='{%url 'Users:my_participants' act_id=act_id%}' method='POST'>
+		 		{%csrf_token%}
+		 		<div class='form-group'>
+		 			<input class='form-control' type='text' name='subject' placeholder='Subject'/>
+		 		</div>
+		 		<div class='form-group'>
+		 			<textarea placeholder='Message' class='form-control' name='message'></textarea>
+		 		</div>
+		 		<input class="btn btn-default" type = 'submit' value = "Send Email"/>
+		 	</form>
+
+		 	{%endif%}
+		</div>
+	</div>
+</div>
+{%endblock%}

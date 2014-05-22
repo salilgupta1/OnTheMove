@@ -1,0 +1,9 @@
+<div>
+	Hi {{userName}},
+</div>
+<div>
+	<p> You have been successfully added to {{activity_name}}!</p>
+	<p>To view the activity click the link below</p>
+
+	{{ protocol }}://{{ domain }}{% url 'Activities:details' id=aid %}
+</div>

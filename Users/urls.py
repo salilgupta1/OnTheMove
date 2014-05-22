@@ -13,4 +13,6 @@ urlpatterns = patterns('',
     url(r'^logout/$','django.contrib.auth.views.logout',
         {'next_page':'/'},
         name='logout'),
+    url(r'^my_activities/$',views.my_activity,name='my_activities'),
+    url(r'^my_participants/(?P<act_id>\d+)/$',views.my_participants,name='my_participants')
 )

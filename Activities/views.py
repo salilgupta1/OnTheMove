@@ -21,7 +21,6 @@ def addUser(request,activity_id,user_id):
 	activity = Act.objects.get(activity_id=activity_id)
 	user = OnthemoveUser.objects.get(pk = user_id)
 	if request.method =='POST':
-		print 'here'
 		is_add = request.POST.get('add')
 		is_ignore = request.POST.get('ignore')
 		if is_add:
@@ -29,6 +28,23 @@ def addUser(request,activity_id,user_id):
 			activity.attendees.add(user)
 			context = {}
 			context['added'] = user.user.first_name+" has been added to your activity"
+			subject='Request to Join Activity on OnTheMove'
+			from_email = 'noreply@onthemove.com'
+			text_content = ("Hi "+ user.user.first_name+", you have been successfully added to " 
+				+activity.activity_name+".")
+
+			html_content = get_template('Activities/enrollEmailSuccess.html').render(
+				Context({
+					"protocol":"http",
+					"domain":request.get_host(),
+					"userName":user.user.first_name,
+					"activity_name":activity.activity_name,
+					"aid":activity_id,
+				})
+			)			
+			msg = EmailMultiAlternatives(subject, text_content, from_email,[user.user.email,'salil.gupta323@gmail.com'])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
 		elif is_ignore:
 			context['added'] = User.user.first_name+" will not be added to your activity"	
 		return render(request,"Activities/addUserSuccess.html",context)

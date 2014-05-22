@@ -58,10 +58,11 @@
 
       <nav id="my-left-menu">
         <ul>
+          <li><a href="/">Home</a></li>
           {%if user.is_authenticated%}
+
             <li><a href="{%url 'Activities:create_Activity'%}">Create Activity</a></li>
-            <!--li><a href="#">My Profile</a></li-->
-            <!--li><a href="">My Activities</a></li-->
+            <li><a href="{%url 'Users:my_activities'%}">My Activities</a></li>
             <li><a href="{%url 'Users:logout'%}">Logout</a></li>
             {%else%}
             <li><a href="{%url 'Users:login'%}">Login</a></li>

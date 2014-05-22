@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from forms import UserForm, OnthemoveUserForm
+from Activities.models import OnthemoveActivity
+from Users.models import OnthemoveUser
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required 
+from django.core.context_processors import csrf
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 # Create your views here.
 def create_user(request):
@@ -28,3 +35,47 @@ def create_user(request):
 	context["onthemoveUserForm"] = onthemoveUserForm
 
 	return render(request,"Users/createUser.html", context)
+@login_required
+def my_activity(request):
+	user = request.user.onthemoveuser
+	enrolled = user.a.all()
+	pending = user.pa.all()
+	own = user.o.all()
+	context = {}
+	context['enrolled'] = enrolled
+	context['pending'] = pending
+	context['own'] = own
+	return render(request,'Users/myActivities.html',context)
+@login_required
+def my_participants(request,act_id):
+	act = OnthemoveActivity.objects.get(pk=act_id)
+	context = {} 
+	context['act_id']=act_id
+	if request.method =='POST':
+		message = request.POST.get('message')
+		if len(message):
+			subject = request.POST.get('subject')
+			if not len(subject):
+				subject ='Onthemove Owner of '+act.activity_name+' sent a message'
+			from_email = "noreply@onthemove.com"
+			html_content = get_template('Users/participantEmail.html').render(
+				Context({
+					"message":message
+				})
+			)	
+			to = [x.user.email for x in act.attendees.all()]
+			#to.append('salil.gupta323@gmail.com')
+			msg = EmailMultiAlternatives(subject, message, from_email,to)
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+			context['success']= "Your email has been sent!"
+		else:
+			context['error_message'] ="You didn't type a message!"
+	attendees = act.attendees.all()
+	context['name'] = act.activity_name
+	context['attendees'] = attendees
+	context.update(csrf(request))
+	return render(request,'Users/viewParticipants.html',context)
+
+
+
