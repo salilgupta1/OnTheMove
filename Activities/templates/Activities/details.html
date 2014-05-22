@@ -15,13 +15,19 @@
           <ul>
 		    <li>
       			<a>
-      				{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
+      				<div>
+      					<img class = "profile-picture" src = "{% static "" %}{{ owner.img }}"/>
+      					{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
+      				</div>
       			</a>
       		</li>
           	{% for participant in attendees.all %}
 				<li>
 					<a>
-						{{ participant.user.first_name }} {{ participant.user.last_name }}
+						<div>
+							<img class = "profile-picture" src = "{% static "" %}{{ participant.img }}"/>
+							{{ participant.user.first_name }} {{ participant.user.last_name }}
+						</div>
 					</a>
 				</li>
 			{% endfor %}
