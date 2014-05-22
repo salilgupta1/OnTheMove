@@ -64,7 +64,7 @@ def my_participants(request,act_id):
 				})
 			)	
 			to = [x.user.email for x in act.attendees.all()]
-			#to.append('salil.gupta323@gmail.com')
+			to.append(request.user.email)
 			msg = EmailMultiAlternatives(subject, message, from_email,to)
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
