@@ -122,6 +122,7 @@ def create_Activity(request):
 			loc_name = m.location_name
 			rating,img_url = yelp_api.get_yelp_data(loc_name,lng,lat)
 
+			print img_url
 
 			if rating == -1:
 				m.location_rate = "no rating available"
