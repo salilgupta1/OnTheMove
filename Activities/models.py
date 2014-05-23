@@ -32,6 +32,7 @@ class OnthemoveLocation(models.Model):
 	location_id = models.AutoField(primary_key=True)
 	location_name = models.TextField(max_length=100,blank=False)
 	location_img = models.ImageField(upload_to="static/Activities/img/locations",default="static/Activities/img/locations/default_loc.jpg")
+	location_img_url = models.URLField(blank=True, null=True)
 	location_rate = models.DecimalField(max_digits = 2, decimal_places = 1, default=Decimal('0.0'))
 	longitude = models.FloatField('Longitude',null =True, blank = True)
 	latitude= models.FloatField('Latitude',null =True, blank = True)

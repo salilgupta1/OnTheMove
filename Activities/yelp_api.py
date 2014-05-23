@@ -12,7 +12,7 @@ except:
 	token_key = os.environ['YELP_TOKEN']
 	token_secret = os.environ['YELP_TOKEN_SECRET']
 
-def get_rating(name,lng,lat):
+def get_yelp_data(name,lng,lat):
 	host = 'api.yelp.com'
 	path = '/v2/search'	
 	url_params = { 'term':name, 'll':str(lat)+','+str(lng)}
@@ -25,10 +25,16 @@ def get_rating(name,lng,lat):
 	#print business_data[0]['rating']
 	if len(business_data) == 0:
 		return -1
-	rating = business_data[0]['rating']
-	if rating is None:
+	entry = business_data[0]
+	rating = entry['rating']
+	if "img_url" in entry.keys():
+		img_url = entry['image_url']
+	else:
+		img_url = -1
+	if rating is None or img_url is None:
 		return -1
-	return rating
+	return rating,img_url
+
 
 
 def search_location():
@@ -52,6 +58,7 @@ def search_location():
 	for business in data['businesses']:
 		print business['name']
 		print business['id']
+		print business['image_url']
 		print
 
 def get_business_info(businessID, latitude, longitude):
