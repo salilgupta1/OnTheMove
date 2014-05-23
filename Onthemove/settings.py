@@ -1,3 +1,4 @@
+
 """
 Django settings for Onthemove project.
 
@@ -10,6 +11,18 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+# for gmail or google apps
+from email_info import EMAIL_USE_TLS,EMAIL_HOST,EMAIL_HOST_USER,EMAIL_HOST_PASSWORD,EMAIL_PORT  
+
+DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = SERVER_EMAIL
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
