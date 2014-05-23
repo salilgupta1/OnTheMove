@@ -8,6 +8,10 @@ from django.core.context_processors import csrf
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
+#from django import forms
+#for mail
+from django.core.mail import EmailMessage
+from django.conf import settings  
 
 # Create your views here.
 def create_user(request):
@@ -21,11 +25,24 @@ def create_user(request):
 			#hash the password
 			new_user.set_password(new_user.password)
 			new_user.save()
-
+			
 			#save the OnthemoveUser with the new_user field
 			onthemove_user = onthemoveUserForm.save(commit=False)
 			onthemove_user.user = new_user
 			onthemove_user.save()
+
+			#send_mail(subject,message,from_email,to_list,fail_silently = True )
+			# subject = 'You have registered for OnTheMove'
+			# message = 'Thank you for registering OnTheMove.\n'
+			# from_email = settings.EMAIL_HOST_USER
+			# to_list = [settings.EMAIL_HOST_USER]
+
+			# send_mail(subject,message,from_email,to_list,fail_silently = True)
+			# msg = EmailMultiAlternatives(subject, message, from_email,to)
+			# msg.attach_alternative(html_content, "text/html")
+			# msg.send()
+			msg = EmailMessage('You have registered for OnTheMove','Thank you for registering OnTheMove.\n Here is your username and emailaddress, you could these information to get your password. please keep it safe.\n username:'+ new_user.username +'\nemail_address:'+new_user.email,from_email = 'noreply@onthemove.com',to = [new_user.email])#,'wade2999lpc@gmail.com'])
+			msg.send()
 			return HttpResponseRedirect('/')
 	else:
 		userForm = UserForm()
