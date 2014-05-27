@@ -8,10 +8,11 @@ from django.core.context_processors import csrf
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
+from django.core.urlresolvers import reverse
 #from django import forms
 #for mail
 from django.core.mail import EmailMessage
-from django.conf import settings  
+  
 
 # Create your views here.
 def create_user(request):
@@ -41,9 +42,10 @@ def create_user(request):
 			# msg = EmailMultiAlternatives(subject, message, from_email,to)
 			# msg.attach_alternative(html_content, "text/html")
 			# msg.send()
-			msg = EmailMessage('You have registered for OnTheMove','Thank you for registering OnTheMove.\n Here is your username and emailaddress, you could these information to get your password. please keep it safe.\n username:'+ new_user.username +'\nemail_address:'+new_user.email,from_email = 'noreply@onthemove.com',to = [new_user.email])#,'wade2999lpc@gmail.com'])
+			email = onthemove_user.user.email
+			msg = EmailMessage('You have registered for OnTheMove','Hi '+ new_user.first_name+',\nThank you for registering OnTheMove!',from_email = 'noreply@onthemove.com',to = [email])
 			msg.send()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect(reverse('Users:login'))
 	else:
 		userForm = UserForm()
 		onthemoveUserForm = OnthemoveUserForm()
