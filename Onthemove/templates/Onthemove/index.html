@@ -15,6 +15,13 @@
 	</div>
 </div> -->
 
+<div class="form-group">
+  <input id = "pac-input" type="text" class="form-control" placeholder="Enter Location">
+</div>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script> -->
+
+       
 <div id="status">
 </div>
 <div id="googleMap"></div>
@@ -29,7 +36,7 @@
 
 {% endblock %}
 {%block jsfiles%}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false&libraries=places"></script>
 <script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
 <script>
 	$(document).ready(function(){
