@@ -1,4 +1,5 @@
 var GoogleMap = (function($){
+	var map;
 	var initialize = function(position){
 		var coords = new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
 		mapOptions = {
@@ -43,8 +44,15 @@ var GoogleMap = (function($){
 	};
 	return {
 		init: function(pos,act,loc){
-			var map = initialize(pos);
+			map = initialize(pos);
 			addActivities(act,loc,map);
+		},
+		query: function(pos, act, loc) {
+			if(map) {
+				addActivities(pos, act, loc);
+			} else {
+				map = initialize(act, loc, map);
+			}
 		}
 	};
 }(jQuery));

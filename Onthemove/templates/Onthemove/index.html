@@ -31,6 +31,8 @@
 {%block jsfiles%}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false"></script>
 <script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
+<script src = "{%static "Activities/js/picker.js"%}"></script>
+<script src = "{%static "Activities/js/picker.time.js"%}"></script>
 <script>
 	$(document).ready(function(){
 	    navigator.geolocation.getCurrentPosition(
@@ -45,4 +47,67 @@
 		);
 	});
 </script>
+
+
+<input class="form-control date-picker" id="start-date-datepicker" name="date" type="text">
+<input class="form-control date-picker" id="end-date-datepicker" name="date" type="text">
+
+<script>
+	$(function(){
+
+		$('#start-date-datepicker').datepicker();
+		$('#start-date-datepicker').val(getToday());
+
+		$('#end-date-datepicker').datepicker();
+		$('#end-date-datepicker').val(getToday());
+		
+		$('.date-picker').change(function(e) {
+			timeQuery();
+		});
+
+		function getToday() {
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1;
+			var yy = today.getFullYear();
+			console.log(yy);
+
+			return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
+		}
+
+		function timeQuery() {
+			var path = "{{time_path}}",
+			data = {};
+			data["start"] = orderDateString($('#start-date-datepicker').val());
+			data["end"] = orderDateString($('#end-date-datepicker').val());
+			$.ajax({
+				type: "POST",
+				dataType:"text",
+				data:data,
+				url:path,
+				success:function(response){
+					console.log(response);
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+		}
+
+		function orderDateString(str) {
+			var dateArray = str.split('/');
+			var month = dateArray[0];
+			var day = dateArray[1];
+			var year = dateArray[2];
+
+			return year + "-" + month + "-" + day;
+		}
+	});
+
+</script>
+
+
+
+
 {%endblock%}
+
