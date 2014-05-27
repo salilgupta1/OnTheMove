@@ -43,7 +43,7 @@ def create_user(request):
 			# msg.attach_alternative(html_content, "text/html")
 			# msg.send()
 			email = onthemove_user.user.email
-			msg = EmailMessage('You have registered for OnTheMove','Hi '+ new_user.first_name+',\nThank you for registering OnTheMove!',from_email = 'noreply@onthemove.com',to = [email])
+			msg = EmailMessage('You have registered for OnTheMove','Hi '+ new_user.first_name+',\nThank you for registering for OnTheMove!',from_email = 'noreply@onthemove.com',to = [email])
 			msg.send()
 			return HttpResponseRedirect(reverse('Users:login'))
 	else:
