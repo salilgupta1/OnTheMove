@@ -98,13 +98,6 @@ var GoogleMap = (function($){
 		init: function(pos,act,loc){
 			var map = initialize(pos);
 			addActivities(act,loc,map);
-		},
-		redrawActivities: function(pos, act, loc) {
-			if(map) {
-				addActivities(pos, act, loc);
-			} else {
-				map = initialize(act, loc, map);
-			}
 		}
 	};
 }(jQuery));
