@@ -1,5 +1,6 @@
 var GoogleMap = (function($){
-	var map;
+	var map,
+	markers = [];
 	var initialize = function(position){
 		var coords = new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
 		mapOptions = {
@@ -24,6 +25,7 @@ var GoogleMap = (function($){
 		for(var i = locl-1;i>=0;i--){
 			var aLoc = $.parseJSON(loc[i]);
 			var url = "activities/details/"+act[i]['pk'];
+			console.log(url);
 			var content_str = "<div>"+act[i]['fields']['activity_name']+"</div><a href="+url+">View Details</a>";
 
 			var infowindow = new google.maps.InfoWindow({content: content_str});
@@ -47,7 +49,7 @@ var GoogleMap = (function($){
 			map = initialize(pos);
 			addActivities(act,loc,map);
 		},
-		query: function(pos, act, loc) {
+		redrawActivities: function(pos, act, loc) {
 			if(map) {
 				addActivities(pos, act, loc);
 			} else {

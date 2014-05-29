@@ -34,75 +34,84 @@
 <script src = "{%static "Activities/js/picker.js"%}"></script>
 <script src = "{%static "Activities/js/picker.time.js"%}"></script>
 <script>
-	$(document).ready(function(){
-	    navigator.geolocation.getCurrentPosition(
-	    	function(pos){
-		    	var act = {{activity_info|safe}};
-		    	var loc = {{location_info|safe}};
-		    	GoogleMap.init(pos,act,loc);
-	    	},
-		    function(){
-		    	alert('Geo location is not supported');
-		   	}
+$(document).ready(function(){
+	navigator.geolocation.getCurrentPosition(
+		function(pos){
+			var act = {{activity_info|safe}};
+			var loc = {{location_info|safe}};
+			GoogleMap.init(pos,act,loc);
+		},
+		function(){
+			alert('Geo location is not supported');
+		}
 		);
-	});
+});
 </script>
 
 
 <input class="form-control date-picker" id="start-date-datepicker" name="date" type="text">
 <input class="form-control date-picker" id="end-date-datepicker" name="date" type="text">
-
 <script>
-	$(function(){
+$(function(){
 
-		$('#start-date-datepicker').datepicker();
-		$('#start-date-datepicker').val(getToday());
+	$('#start-date-datepicker').datepicker();
+	$('#start-date-datepicker').val(getToday());
 
-		$('#end-date-datepicker').datepicker();
-		$('#end-date-datepicker').val(getToday());
-		
-		$('.date-picker').change(function(e) {
-			timeQuery();
-		});
+	$('#end-date-datepicker').datepicker();
+	$('#end-date-datepicker').val(getToday());
 
-		function getToday() {
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth() + 1;
-			var yy = today.getFullYear();
-			console.log(yy);
-
-			return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
-		}
-
-		function timeQuery() {
-			var path = "{{time_path}}",
-			data = {};
-			data["start"] = orderDateString($('#start-date-datepicker').val());
-			data["end"] = orderDateString($('#end-date-datepicker').val());
-			$.ajax({
-				type: "POST",
-				dataType:"text",
-				data:data,
-				url:path,
-				success:function(response){
-					console.log(response);
-				},
-				error:function(error){
-					console.log(error);
-				}
-			});
-		}
-
-		function orderDateString(str) {
-			var dateArray = str.split('/');
-			var month = dateArray[0];
-			var day = dateArray[1];
-			var year = dateArray[2];
-
-			return year + "-" + month + "-" + day;
-		}
+	$('.date-picker').change(function(e) {
+		timeQuery();
 	});
+
+	function getToday() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yy = today.getFullYear();
+		console.log(yy);
+
+		return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
+	}
+
+	function timeQuery() {
+		var csrf = document.cookie.split('=')[1];
+		var path = "{{time_path}}",
+		data = {"csrfmiddlewaretoken": csrf};
+		data["start"] = orderDateString($('#start-date-datepicker').val());
+		data["end"] = orderDateString($('#end-date-datepicker').val());
+		$.ajax({
+			type: "POST",
+			dataType:"text",
+			data:data,
+			url:path,
+			success:function(response){
+				var parsedResponse = $.parseJSON(response);
+				navigator.geolocation.getCurrentPosition(
+					function(pos){
+						var loc = parsedResponse.location_info;
+						var act = $.parseJSON(parsedResponse.activity_info);
+						GoogleMap.init(pos,act,loc);
+					},
+					function(){
+						alert('Geo location is not supported');
+					});
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
+
+	function orderDateString(str) {
+		var dateArray = str.split('/');
+		var month = dateArray[0];
+		var day = dateArray[1];
+		var year = dateArray[2];
+
+		return year + "-" + month + "-" + day;
+	}
+});
 
 </script>
 
