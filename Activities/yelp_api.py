@@ -56,7 +56,7 @@ def search_location(lat,lng,keyword):
 		business_obj['name'] = business[i]['name']
 		business_obj['id'] = business[i]['id']
 		business_obj['location'] = business[i]['location']['display_address'][0]
-		business_list[i] = business_obj
+		business_list.append(business_obj)
 
 	return {
 		'lat' : lat,
@@ -67,7 +67,6 @@ def search_location(lat,lng,keyword):
 
 def get_business_info(businessID, latitude, longitude):
 	result = {}
-
 	host = 'api.yelp.com'
 	path = '/v2/search'
 

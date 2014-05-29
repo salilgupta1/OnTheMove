@@ -25,11 +25,3 @@ def home_page(request):
 		context['location_info']= coordinates
 		context['path'] = request.path
 		return render(request,'Onthemove/index.html',context)
-
-def current_location(request):
-	if request.is_ajax():
-		lat = request[0]
-		lng = request[1]
-		request.session['cur_lat'] = lat;
-		request.sessing['cur_lng'] = lng;
-		return HttpResponse("Thanks!")

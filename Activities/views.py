@@ -115,8 +115,16 @@ def details(request, id):
 		return render(request,"Activities/details.html", context)
 
 @login_required
-def create_Activity(request, lng, lat):
-	if request.method == 'POST':
+def create_Activity(request):
+	if request.is_ajax():
+		search_term = request.POST['yelp_term']
+		lat = request.session['cur_lat']
+		lng = request.session['cur_lng']
+		search_result = yelp_api.search_location(lat,lng,search_term)
+		request.session['search_result'] = search_result
+		return HttpResponse(json.dumps(search_result), content_type="application/json")
+
+	elif request.method == 'POST':
 		actForm = ActivityForm(request.POST)
 		locForm = LocationForm(request.POST)
 
@@ -136,16 +144,13 @@ def create_Activity(request, lng, lat):
 			m.longitude = lng
 			m.latitude = lat
 			loc_name = m.location_name
+			
+			# get yelp rating and image
 			rating,img_url = yelp_api.get_yelp_data(loc_name,lng,lat)
-
-			print img_url
-
 			if rating == -1:
 				m.location_rate = "no rating available"
 			else:
 				m.location_rate = rating
-
-			
 			if img_url == -1:
 				m.location_img_url = "http://www.mountainmansocialmedia.com/_site/wp-content/themes/juiced/img/thumbnail-default.jpg"
 			else:
@@ -153,8 +158,6 @@ def create_Activity(request, lng, lat):
 			
 			location_obj = locForm.save()
 			
-
-
 			date = request.POST.get('date')
 			start_time = request.POST.get('start_time')
 			end_time = request.POST.get('end_time')
@@ -195,6 +198,7 @@ def create_Activity(request, lng, lat):
 	context.update(csrf(request))
 	context['act_form'] = actForm
 	context['loc_form'] = locForm
+	context['path'] = request.path
 
 	return render(request,"Activities/createActivity.html", context)
 

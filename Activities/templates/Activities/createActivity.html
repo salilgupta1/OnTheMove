@@ -17,6 +17,14 @@
 	    		{{field}}
 	    	</div>
 			{% endfor %}
+			<div class="input-group dropdown">
+  				<input type="text" class="form-control" placeholder="Search on Yelp" id="yelp_term" data-toggle="dropdown">
+  				<span class="input-group-btn">
+        			<button class="btn btn-default" type="button" id="yelp_btn">Go!</button>
+      			</span>
+      			<ul class="dropdowm-menu" role="menu" aria-labelledby="yelp_term" id="result_list"></ul>
+			</div>
+
 			{% for field in loc_form %}
 			<div class = 'form-group'>
 				<div>{{field.errors|striptags}}</div>
@@ -33,7 +41,13 @@
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src = "{%static "Activities/js/picker.js"%}"></script>
 <script src = "{%static "Activities/js/picker.time.js"%}"></script>
+<script src = "{%static "Activities/js/createActivities.js"%}"></script>
+<script src = "{%static "js/jquery.cookie.js"%}"></script>
 <script>
+	var csrf = $.cookie('csrftoken');
+	createActivities.search_yelp({"csrfmiddlewaretoken":csrf},"{{path}}");
+
+	
 	$(function(){
 		$('#datepicker').datepicker();
 		$('#datepicker').val(getToday());
