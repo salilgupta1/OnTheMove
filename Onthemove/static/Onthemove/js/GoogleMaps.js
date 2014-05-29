@@ -40,13 +40,36 @@ var GoogleMap = (function($){
 		        };
    			})(marker,content,infowindow)); 
 		}
-	};
+	}, 
+	getLocation = function(data,position,path){
+		var coords = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		var lat = coords['k'],
+		lng = coords['A'],
+		coords = {};
+		coords['lat'] = lat;
+		coords['lng'] = lng;
+		data['coords'] = coords;
+		$.ajax({
+			type: "POST",
+			dataType:"text",
+			data:data,
+			url:path,
+			success:function(response){
+				console.log(response);
+			},
+			error:function(error){
+				console.log('error');
+			}
+		});
+	}
 	return {
-		init: function(pos,act,loc){
+		init: function(pos,act,loc,data,path){
 			var map = initialize(pos);
 			addActivities(act,loc,map);
+			getLocation(data,pos,path);
 		}
 	};
 }(jQuery));
+
 
 

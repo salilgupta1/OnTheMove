@@ -37,15 +37,10 @@ def get_yelp_data(name,lng,lat):
 
 
 
-def search_location():
+def search_location(lat,lng,keyword):
 	host = 'api.yelp.com'
 	path = '/v2/search'
-	#consumer_key = config.keys['YELP_CONSUMER']
-	#consumer_secret = config.keys['YELP_CONSUMER_SECRET']
-	#token_key = config.keys['YELP_TOKEN']
-	#token_secret = config.keys['YELP_TOKEN_SECRET']
-	
-	url_params = { 'term':'bars', 'location':'San Francisco' }
+	url_params = { 'term':keyword, 'll': str(lat)+','+str(lng)}
 
 	data = Activities.search.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
 
@@ -53,28 +48,45 @@ def search_location():
 	location_data = data['region']['center']
 	lat = location_data['latitude']
 	lng = location_data['longitude']
-	print lat, lng
+	#print lat, lng
+	business_list = []
+	business = data['businesses']
+	for i in range(0,5):
+		business_obj = {}
+		business_obj['name'] = business[i]['name']
+		business_obj['id'] = business[i]['id']
+		business_obj['location'] = business[i]['location']['display_address'][0]
+		business_list[i] = business_obj
 
-	for business in data['businesses']:
-		print business['name']
-		print business['id']
-		print business['image_url']
-		print
+	return {
+		'lat' : lat,
+		'lng' : lng,
+		'business_list':business_list
+	}
+
 
 def get_business_info(businessID, latitude, longitude):
 	result = {}
 
 	host = 'api.yelp.com'
 	path = '/v2/search'
-	#consumer_key = config.keys['YELP_CONSUMER']
-	#consumer_secret = config.keys['YELP_CONSUMER_SECRET']
-	#token_key = config.keys['YELP_TOKEN']
-	#token_secret = config.keys['YELP_TOKEN_SECRET']
 
-	url_params = { 'id': businessID }
+	url_params = { 'id': businessID ,'ll': str(lat)+','+str(lng)}
 
 	data = Activities.search.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
-
-	print data
+	business = data['businesses'][0]
+	name = business['name']
+	address = business['location']['address']
+	city = business['location']['city']
+	state = business['location']['state']
+	zipcode = business['location']['postal_code']
+	return {
+		'name':name,
+		'address':address,
+		'city' : city,
+		'state': state,
+		'zipcode':zipcode
+	}
+	
 
 

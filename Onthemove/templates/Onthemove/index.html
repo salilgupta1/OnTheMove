@@ -29,15 +29,19 @@
 
 {% endblock %}
 {%block jsfiles%}
+<script src = "{%static "js/jquery.cookie.js"%}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false"></script>
 <script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
 <script>
+	var csrf = $.cookie('csrftoken');
 	$(document).ready(function(){
 	    navigator.geolocation.getCurrentPosition(
 	    	function(pos){
 		    	var act = {{activity_info|safe}};
 		    	var loc = {{location_info|safe}};
-		    	GoogleMap.init(pos,act,loc);
+		    	var path = '{{path}}';
+		    	GoogleMap.init(pos,act,loc,{"csrfmiddlewaretoken":csrf},path);
+		    	// GoogleMap.getLocation({"csrfmiddlewaretoken":csrf},path,pos);
 	    	},
 		    function(){
 		    	alert('Geo location is not supported');

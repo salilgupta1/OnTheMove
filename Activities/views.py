@@ -115,7 +115,7 @@ def details(request, id):
 		return render(request,"Activities/details.html", context)
 
 @login_required
-def create_Activity(request):
+def create_Activity(request, lng, lat):
 	if request.method == 'POST':
 		actForm = ActivityForm(request.POST)
 		locForm = LocationForm(request.POST)
