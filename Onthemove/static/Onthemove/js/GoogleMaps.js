@@ -1,4 +1,6 @@
 var GoogleMap = (function($){
+	var map,
+	markers = [];
 	var initialize = function(position){
 		var coords = new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
 		mapOptions = {
@@ -11,14 +13,7 @@ var GoogleMap = (function($){
 			map:mapA
 		}),
 
-	
-		
-  input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-
-
-  // mapA.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+  input = (document.getElementById('pac-input'));
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', mapA);
@@ -42,7 +37,7 @@ var GoogleMap = (function($){
       mapA.fitBounds(place.geometry.viewport);
     } else {
       mapA.setCenter(place.geometry.location);
-      mapA.setZoom(17);  // Why 17? Because it looks good.
+      mapA.setZoom(13); 
     }
     marker.setIcon(/** @type {google.maps.Icon} */({
       url: place.icon,
@@ -69,11 +64,11 @@ var GoogleMap = (function($){
 
 
 
-		infowindow = new google.maps.InfoWindow({
-			content: "You are here!"
+		infowindowU = new google.maps.InfoWindow({
+			content: "<div><strong>You are here!</strong></div>"
 		});
 		google.maps.event.addListener(userMarker,'click',function(){
-			infowindow.open(mapA,userMarker);
+			infowindowU.open(mapA,userMarker);
 		});
 		return mapA;
 	},
@@ -94,7 +89,6 @@ var GoogleMap = (function($){
 			marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 			google.maps.event.addListener(marker,'click',(function(marker,content,infowindow){ 
         		return function() {
-		        	
 		        	infowindow.open(map,marker);
 		        };
    			})(marker,content,infowindow)); 
@@ -104,6 +98,13 @@ var GoogleMap = (function($){
 		init: function(pos,act,loc){
 			var map = initialize(pos);
 			addActivities(act,loc,map);
+		},
+		redrawActivities: function(pos, act, loc) {
+			if(map) {
+				addActivities(pos, act, loc);
+			} else {
+				map = initialize(act, loc, map);
+			}
 		}
 	};
 }(jQuery));
