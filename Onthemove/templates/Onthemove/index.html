@@ -18,6 +18,14 @@
 <div id="status">
 </div>
 <div id="googleMap"></div>
+<div class="form-group">
+	<label>Start Date:</label>
+	<input class="form-control date-picker" id="start-date-datepicker" name="date" type="text">
+</div>
+<div class="form-group">
+	<label class="">End Date:</label>
+	<input class="form-control date-picker" id="end-date-datepicker" name="date" type="text">
+</div>
 
 <!--
   Below we include the Login Button social plugin. This button uses
@@ -33,6 +41,7 @@
 <script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
 <script src = "{%static "Activities/js/picker.js"%}"></script>
 <script src = "{%static "Activities/js/picker.time.js"%}"></script>
+
 <script>
 $(document).ready(function(){
 	navigator.geolocation.getCurrentPosition(
@@ -49,27 +58,27 @@ $(document).ready(function(){
 </script>
 
 
-<input class="form-control date-picker" id="start-date-datepicker" name="date" type="text">
-<input class="form-control date-picker" id="end-date-datepicker" name="date" type="text">
+
 <script>
 $(function(){
-
 	$('#start-date-datepicker').datepicker();
-	$('#start-date-datepicker').val(getToday());
+	$('#start-date-datepicker').val(getDayAtOffset(0));
 
 	$('#end-date-datepicker').datepicker();
-	$('#end-date-datepicker').val(getToday());
+	$('#end-date-datepicker').val(getDayAtOffset(7));
 
 	$('.date-picker').change(function(e) {
 		timeQuery();
 	});
 
-	function getToday() {
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1;
-		var yy = today.getFullYear();
-		console.log(yy);
+	timeQuery();
+
+	function getDayAtOffset(offset) {
+		var date = new Date();
+		date.setDate(date.getDate() + offset)
+		var dd = date.getDate();
+		var mm = date.getMonth() + 1;
+		var yy = date.getFullYear();
 
 		return mm.toString() + '/' + dd.toString() + '/' + yy.toString();
 	}

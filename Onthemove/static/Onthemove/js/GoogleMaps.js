@@ -38,7 +38,6 @@ var GoogleMap = (function($){
 			marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 			google.maps.event.addListener(marker,'click',(function(marker,content,infowindow){ 
         		return function() {
-		        	
 		        	infowindow.open(map,marker);
 		        };
    			})(marker,content,infowindow)); 

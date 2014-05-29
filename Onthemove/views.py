@@ -10,7 +10,7 @@ import json
 
 @ensure_csrf_cookie
 def home_page(request):
-	act = OnthemoveActivity.objects.select_related('location_id').all()
+	act = OnthemoveActivity.objects.select_related('location_id').filter(is_closed=False)
 	coordinates =[]
 	act_json = serializers.serialize('json',act,fields = ('activity_name','location_id'))
 	for i in act:
@@ -25,7 +25,7 @@ def home_page(request):
 @ensure_csrf_cookie
 def time_query(request):
 	if request.is_ajax():
-		act = OnthemoveActivity.objects.filter(date__range=[request.POST.get("start"), request.POST.get("end")])
+		act = OnthemoveActivity.objects.filter(date__range=[request.POST.get("start"), request.POST.get("end")]).filter(is_closed=False)
 		act_json = serializers.serialize('json',act,fields = ('activity_name','location_id'))
 		coordinates =[]
 		act_json = serializers.serialize('json',act,fields = ('activity_name','location_id'))
