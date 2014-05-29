@@ -4,6 +4,14 @@ body {
   /* The html and body elements cannot have any padding or margin. */
 }
 
+#ui-input-clear {
+ position : absolute;
+/* padding-top:auto;
+ padding-bottom: auto;*/
+ top:15%;
+ right :12%;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;

@@ -16,8 +16,14 @@
 </div> -->
 
 <div class="form-group">
-  <input id = "pac-input" type="text" class="form-control" placeholder="Enter Location">
+	<div id = "input-x">
+	  <input id = "pac-input" type="text" class="form-control" placeholder="Enter Location"><span id = "ui-input-clear" class="glyphicon glyphicon-remove"></span>
+	</div>
 </div>
+
+
+
+
 
 <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script> -->
 
@@ -50,6 +56,21 @@
 		    	alert('Geo location is not supported');
 		   	}
 		);
+		$("#ui-input-clear").click(function(e){
+		   		e.preventDefault();
+			$("#pac-input").val('');
+			
+			navigator.geolocation.getCurrentPosition(
+	    	function(pos){
+		    	var act = {{activity_info|safe}};
+		    	var loc = {{location_info|safe}};
+		    	GoogleMap.init(pos,act,loc);
+	    	},
+		    function(){
+		    	alert('Geo location is not supported');
+		   	}
+		);
+		});
 	});
 </script>
 {%endblock%}

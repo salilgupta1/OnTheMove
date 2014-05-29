@@ -11,8 +11,8 @@ var GoogleMap = (function($){
 			map:mapA
 		}),
 
-
-
+	
+		
   input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
 
