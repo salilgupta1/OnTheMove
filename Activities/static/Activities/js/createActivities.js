@@ -15,21 +15,27 @@ var createActivities = (function($){
 					var business_list = response_data.business_list;
 					var lat = response_data.lat;
 					var lng = response_data.lng;
-					for (var i = 0; i < 5; i++) {
-						var name = business_list[i]["name"];
-						var location = business_list[i]["location"];
-						var id = business_list[i]["id"];
-						$("#result_list").append('<button type="button" value="' + id + '"class="btn result_item list-btn"><li class="list-group-item"> <h5 class="list-group-item-heading">'+ name+'</h5>'+location+'</li></button>');
-					};
+
+					$(".result_item").remove();
+
+					if (business_list != 'No Yelp Results') {
+						for (var i = 0; i < 5; i++) {
+							var name = business_list[i]["name"];
+							var location = business_list[i]["location"];
+							var id = business_list[i]["id"];
+							$("#result_list").append('<button type="button" value="' + id + '"class="btn result_item list-btn"><li class="list-group-item"> <h5 class="list-group-item-heading">'+ name+'</h5>'+location+'</li></button>');
+						};
+					}
+					else {
+						$("#result_list").append('<p> No Yelp results. Please enter location information below. </p>');
+					}
+					
 
 					$(".result_item").click(function(){
 						var choosen_obj = $(this).val();
-						console.log(choosen_obj);
 						data["yelp_name"] = choosen_obj;
-						console.log(lat);
 						data["lat"] = lat;
 						data["lng"] = lng;
-						console.log(data);
 						$.ajax({
 							type: "POST",
 							dataType:"text",

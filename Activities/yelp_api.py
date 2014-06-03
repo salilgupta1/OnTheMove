@@ -50,12 +50,15 @@ def search_location(lat,lng,keyword):
 	#print lat, lng
 	business_list = []
 	business = data['businesses']
-	for i in range(0,5):
-		business_obj = {}
-		business_obj['name'] = business[i]['name']
-		business_obj['id'] = business[i]['id']
-		business_obj['location'] = business[i]['location']['display_address'][0]
-		business_list.append(business_obj)
+	if len(business) > 5:
+		for i in range(0,5):
+			business_obj = {}
+			business_obj['name'] = business[i]['name']
+			business_obj['id'] = business[i]['id']
+			business_obj['location'] = business[i]['location']['display_address'][0]
+			business_list.append(business_obj)
+	else:
+		business_list = 'No Yelp Results'
 
 	return {
 		'lat' : lat,
