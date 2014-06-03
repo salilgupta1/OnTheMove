@@ -17,9 +17,10 @@ var createActivities = (function($){
 					var lng = response_data.lng;
 
 					$(".result_item").remove();
+					$("#error-message").remove();
 
 					if (business_list != 'No Yelp Results') {
-						for (var i = 0; i < 5; i++) {
+						for (var i = 0; i < business_list.length; i++) {
 							var name = business_list[i]["name"];
 							var location = business_list[i]["location"];
 							var id = business_list[i]["id"];
@@ -27,7 +28,7 @@ var createActivities = (function($){
 						};
 					}
 					else {
-						$("#result_list").append('<p> No Yelp results. Please enter location information below. </p>');
+						$("#result_list").append('<p id="error-message"> No Yelp results. Please enter location information below. </p>');
 					}
 					
 
