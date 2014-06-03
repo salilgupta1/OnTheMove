@@ -1,3 +1,29 @@
 .btn-default {
-	margin-bottom: 9px;
+	/*margin-bottom: 9px;*/
+	margin: 0px;
+}
+
+.list-btn {
+	width: 100%;
+	background-color: transparent;
+	border:none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.list-group {
+	margin-bottom: 15px;
+}
+
+.btn {
+	white-space: normal;
+}
+
+.list-group-item:last-child {
+	text-align: left;
+}
+
+.btn-default {
+	padding-top: 6px;
+	padding-bottom: 6px;
 }

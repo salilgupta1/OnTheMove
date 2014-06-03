@@ -19,7 +19,7 @@ var createActivities = (function($){
 						var name = business_list[i]["name"];
 						var location = business_list[i]["location"];
 						var id = business_list[i]["id"];
-						$("#result_list").append('<li role="presentation"><button type="button" value="' + id + '"class="btn btn-default result_item">'+ name+' '+location+'</button></li>');
+						$("#result_list").append('<button type="button" value="' + id + '"class="btn result_item list-btn"><li class="list-group-item"> <h5 class="list-group-item-heading">'+ name+'</h5>'+location+'</li></button>');
 					};
 
 					$(".result_item").click(function(){
@@ -50,10 +50,12 @@ var createActivities = (function($){
 								$("#location_state").val(state);
 								$("#location_zipcode").val(zipcode);
 
+								$("#yelp_label").remove();
 								$("#yelp_term").remove();
 								$("#yelp_btn").remove();
 								$("#result_list").remove();
 								$(".result_item").remove();
+
 
 							},
 							error:function(error){

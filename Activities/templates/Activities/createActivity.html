@@ -17,13 +17,19 @@
 	    		{{field}}
 	    	</div>
 			{% endfor %}
-			<div class="input-group dropdown">
-  				<input type="text" class="form-control" placeholder="Search on Yelp" id="yelp_term" data-toggle="dropdown">
+			<label for="yelp_term" id="yelp_label">Search for Location on Yelp:</label>
+			<div class="input-group">
+  				<input type="text" class="form-control" placeholder="Search on Yelp" id="yelp_term">
   				<span class="input-group-btn">
-        			<button class="btn btn-default" type="button" id="yelp_btn">Go!</button>
+        			<button class="btn btn-default" type="button" id="yelp_btn">
+        				<span class ="glyphicon glyphicon-search" >
+        				</span>
+        			</button>
       			</span>
-      			<ul class="dropdowm-menu" role="menu" aria-labelledby="yelp_term" id="result_list"></ul>
 			</div>
+			<ul class="list-group" id="result_list">
+				<!-- <button class="list-btn"><li class="list-group-item">hi test</li></button> -->
+			</ul>
 
 			{% for field in loc_form %}
 			<div class = 'form-group'>

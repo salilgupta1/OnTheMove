@@ -11,7 +11,6 @@ import json
 
 @ensure_csrf_cookie
 def home_page(request):
-<<<<<<< HEAD
 	if request.is_ajax():
 		lat = request.POST['coords[lat]']
 		lng = request.POST['coords[lng]']
