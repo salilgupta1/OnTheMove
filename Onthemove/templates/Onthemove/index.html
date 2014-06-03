@@ -16,12 +16,16 @@
 </div> -->
 
 <div class="form-group">
-	<div id = "input-x">
-	  <input id = "pac-input" type="text" class="form-control" placeholder="Enter Location"><span id = "ui-input-clear" class="glyphicon glyphicon-remove"></span>
+	<div class="input-group">
+		<input id="pac-input" type="text" class="form-control" placeholder="Enter Location">
+		<span class="input-group-btn">
+			<button id="current-location-button" style="padding-top:6px; padding-bottom:6px;"class="btn btn-default">
+				<span class="glyphicon glyphicon-map-marker">
+				</span>
+			</button>
+		</span>
 	</div>
 </div>
-
-
 
 
 
@@ -60,25 +64,25 @@
 <script src = "{%static "Activities/js/picker.time.js"%}"></script>
 
 <script>
-	var csrf = $.cookie('csrftoken');
-	$(document).ready(function(){
-	    navigator.geolocation.getCurrentPosition(
-	    	function(pos){
-		    	var act = {{activity_info|safe}};
-		    	var loc = {{location_info|safe}};
-		    	var path = '{{path}}';
-		    	GoogleMap.init(pos,act,loc,{"csrfmiddlewaretoken":csrf},path);
+var csrf = $.cookie('csrftoken');
+$(document).ready(function(){
+	navigator.geolocation.getCurrentPosition(
+		function(pos){
+			var act = {{activity_info|safe}};
+			var loc = {{location_info|safe}};
+			var path = '{{path}}';
+			GoogleMap.init(pos,act,loc,{"csrfmiddlewaretoken":csrf},path);
 		    	// GoogleMap.getLocation({"csrfmiddlewaretoken":csrf},path,pos);
-	    	},
+		    },
 		    function(){
 		    	alert('Geo location is not supported');
-		   	}
-		);
+		    }
+		    );
 
-		$("#ui-input-clear").click(function(e) {
-			e.preventDefault();
-			$("#pac-input").val('');
-			timeQuery();
+	$("#current-location-button").click(function(e) {
+		e.preventDefault();
+		$("#pac-input").val('');
+		timeQuery();
 			// navigator.geolocation.getCurrentPosition(
 			// 	function(pos) {
 			// 		var act = {
@@ -97,7 +101,7 @@
 			// 		alert('Geo location is not supported');
 			// 	}
 			// );
-		});
+});
 
 });
 

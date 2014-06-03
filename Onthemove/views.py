@@ -35,8 +35,10 @@ def home_page(request):
 def time_query(request):
 	if request.is_ajax():
 		act = OnthemoveActivity.objects.filter(date__range=[request.POST.get("start"), request.POST.get("end")]).filter(is_closed=False)
+		coordinates =[]
 		act_json = serializers.serialize('json',act,fields = ('activity_name','location_id'))
-
+		for i in act:
+			coordinates.append(serializers.serialize('json',[i.location_id],fields = ('latitude','longitude')))
 		response = {}
 		response['activity_info'] = act_json
 		response['location_info'] = coordinates
