@@ -59,6 +59,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false&libraries=places"></script>
 <script src = "{%static "js/jquery.cookie.js"%}"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrx02MVvtSlDsDMtqUT7B7KUxVdjDcOWk&sensor=false"></script> -->
+<script src = "{%static "js/jquery.cookie.js"%}"></script>
 <script src = "{%static "Onthemove/js/GoogleMaps.js"%}"></script>
 <script src = "{%static "Activities/js/picker.js"%}"></script>
 <script src = "{%static "Activities/js/picker.time.js"%}"></script>
@@ -136,7 +137,8 @@ function getDayAtOffset(offset) {
 }
 
 function timeQuery() {
-	var csrf = document.cookie.split('=')[1];
+	var csrf = $.cookie('csrftoken');
+	// var csrf = document.cookie.split('=')[1];
 	var path = "{{time_path}}",
 	data = {"csrfmiddlewaretoken": csrf};
 	data["start"] = orderDateString($('#start-date-datepicker').val());

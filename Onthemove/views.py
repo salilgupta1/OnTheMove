@@ -31,7 +31,6 @@ def home_page(request):
 		context.update(csrf(request))
 		return render(request,'Onthemove/index.html',context)
 
-@ensure_csrf_cookie
 def time_query(request):
 	if request.is_ajax():
 		act = OnthemoveActivity.objects.filter(date__range=[request.POST.get("start"), request.POST.get("end")]).filter(is_closed=False)
