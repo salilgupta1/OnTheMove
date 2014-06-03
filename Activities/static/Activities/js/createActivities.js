@@ -49,6 +49,12 @@ var createActivities = (function($){
 								$("#location_city").val(city);
 								$("#location_state").val(state);
 								$("#location_zipcode").val(zipcode);
+
+								$("#yelp_term").remove();
+								$("#yelp_btn").remove();
+								$("#result_list").remove();
+								$(".result_item").remove();
+
 							},
 							error:function(error){
 								console.log(error);
