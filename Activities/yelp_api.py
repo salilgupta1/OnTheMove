@@ -1,4 +1,4 @@
-import Activities.search
+import Activities.search, Activities.business
 import json,os
 try:
 	import config
@@ -36,7 +36,6 @@ def get_yelp_data(name,lng,lat):
 	return rating,img_url
 
 
-
 def search_location(lat,lng,keyword):
 	host = 'api.yelp.com'
 	path = '/v2/search'
@@ -68,19 +67,20 @@ def search_location(lat,lng,keyword):
 def get_business_info(businessID, latitude, longitude):
 	result = {}
 	host = 'api.yelp.com'
-	path = '/v2/search'
+	path = '/v2/business/' + businessID
 
-	url_params = { 'id': businessID ,'ll': str(lat)+','+str(lng)}
+	# url_params = { 'id': businessID }
+	url_params = {}
 
-	data = Activities.search.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
-	business = data['businesses'][0]
-	name = business['name']
-	address = business['location']['address']
-	city = business['location']['city']
-	state = business['location']['state']
-	zipcode = business['location']['postal_code']
+	data = Activities.business.request(host, path, url_params, consumer_key, consumer_secret, token_key, token_secret)
+
+	name = data['name']
+	address = data['location']['address']
+	city = data['location']['city']
+	state = data['location']['state_code']
+	zipcode = data['location']['postal_code']
 	return {
-		'name':name,
+		'business_name':name,
 		'address':address,
 		'city' : city,
 		'state': state,

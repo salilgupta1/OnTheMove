@@ -202,6 +202,17 @@ def create_Activity(request):
 
 	return render(request,"Activities/createActivity.html", context)
 
+def fill_in_yelp(request):
+	if request.is_ajax():
+		search_name = request.POST['yelp_name']
+		search_lat = request.POST['lat']
+		search_lng = request.POST['lng']
+
+		business_results = yelp_api.get_business_info(search_name, search_lat, search_lng)
+
+		return HttpResponse(json.dumps(business_results), content_type="application/json")
+
+
 def convert_Time(time):
 	timeArray = time.split(":")
 	hours = timeArray[0]
