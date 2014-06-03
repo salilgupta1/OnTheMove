@@ -28,18 +28,19 @@ class ActivityForm(forms.ModelForm):
 		fields = ['activity_name','date','start_time','end_time','max_num_attendees','min_num_attendees','skill_level']
 
 class LocationForm(forms.ModelForm):
-	location_name = forms.CharField(max_length=100,error_messages={'required':'Please input a name'})
-	address = forms.CharField(max_length=100, error_messages={'required':'Please input an address'})
+	location_name = forms.CharField(max_length=100,error_messages={'required':'Please input a name'},widget=forms.TextInput(attrs={'id':'location_name'}))
+	address = forms.CharField(max_length=100, error_messages={'required':'Please input an address'}, widget=forms.TextInput(attrs={'id':'location_address'}))
 	#state = forms.CharField(max_length=2, error_messages={'required':'Please input a state'})
 	state = USStateField(widget=forms.Select(choices=STATE_CHOICES))
-	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'})
-	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'})
+	city = forms.CharField(max_length=100, error_messages={'required':'Please input a city'}, widget=forms.TextInput(attrs={'id':'location_city'}))
+	zipcode = forms.IntegerField(error_messages={'required':'Please input a zipcode'}, widget=forms.TextInput(attrs={'id':'location_zipcode'}))
 	# location_rate = forms.DecimalField(max_digits = 2, decimal_places = 1, error_messages={'required':'Please rate this location'})
 	
 	def __init__(self,*args,**kwargs):
 		super(LocationForm,self).__init__(*args,**kwargs)
 		for fields in self.fields.items():
 			fields[1].widget.attrs.update({'class':'form-control'})
+		self.fields['state'].widget.attrs.update({'id' : 'location_state'})
 
 	class Meta:
 		model = OnthemoveLocation

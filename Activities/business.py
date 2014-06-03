@@ -4,40 +4,40 @@ import optparse
 import urllib
 import urllib2
 
-parser = optparse.OptionParser()
-parser.add_option('-c', '--consumer_key', dest='consumer_key', help='OAuth consumer key (REQUIRED)')
-parser.add_option('-s', '--consumer_secret', dest='consumer_secret', help='OAuth consumer secret (REQUIRED)')
-parser.add_option('-t', '--token', dest='token', help='OAuth token (REQUIRED)')
-parser.add_option('-e', '--token_secret', dest='token_secret', help='OAuth token secret (REQUIRED)')
-parser.add_option('-a', '--host', dest='host', help='Host', default='api.yelp.com')
-parser.add_option('-i', '--id', dest='id', help='Business')
-parser.add_option('-u', '--cc', dest='cc', help='Country code')
-parser.add_option('-n', '--lang', dest='lang', help='Language code')
+# parser = optparse.OptionParser()
+# parser.add_option('-c', '--consumer_key', dest='consumer_key', help='OAuth consumer key (REQUIRED)')
+# parser.add_option('-s', '--consumer_secret', dest='consumer_secret', help='OAuth consumer secret (REQUIRED)')
+# parser.add_option('-t', '--token', dest='token', help='OAuth token (REQUIRED)')
+# parser.add_option('-e', '--token_secret', dest='token_secret', help='OAuth token secret (REQUIRED)')
+# parser.add_option('-a', '--host', dest='host', help='Host', default='api.yelp.com')
+# parser.add_option('-i', '--id', dest='id', help='Business')
+# parser.add_option('-u', '--cc', dest='cc', help='Country code')
+# parser.add_option('-n', '--lang', dest='lang', help='Language code')
 
 
-options, args = parser.parse_args()
+# options, args = parser.parse_args()
 
-# Required options
-if not options.consumer_key:
-  parser.error('--consumer_key required')
-if not options.consumer_secret:
-  parser.error('--consumer_secret required')
-if not options.token:
-  parser.error('--token required')
-if not options.token_secret:
-  parser.error('--token_secret required')
+# # Required options
+# if not options.consumer_key:
+#   parser.error('--consumer_key required')
+# if not options.consumer_secret:
+#   parser.error('--consumer_secret required')
+# if not options.token:
+#   parser.error('--token required')
+# if not options.token_secret:
+#   parser.error('--token_secret required')
 
-if not options.id:
-  parser.error('--id required')
+# if not options.id:
+#   parser.error('--id required')
 
-url_params = {}
-if options.cc:
-  url_params['cc'] = options.cc
-if options.lang:
-  url_params['lang'] = options.lang
+# url_params = {}
+# if options.cc:
+#   url_params['cc'] = options.cc
+# if options.lang:
+#   url_params['lang'] = options.lang
 
 
-path = '/v2/business/%s' % (options.id,)
+# path = '/v2/business/%s' % (options.id,)
 
 
 def request(host, path, url_params, consumer_key, consumer_secret, token, token_secret):
@@ -74,5 +74,5 @@ def request(host, path, url_params, consumer_key, consumer_secret, token, token_
 
   return response
 
-response = request(options.host, path, url_params, options.consumer_key, options.consumer_secret, options.token, options.token_secret)
-print json.dumps(response, sort_keys=True, indent=2)
+# response = request(options.host, path, url_params, options.consumer_key, options.consumer_secret, options.token, options.token_secret)
+# print json.dumps(response, sort_keys=True, indent=2)
