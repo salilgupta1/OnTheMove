@@ -13,7 +13,7 @@
 	 </div>
 	  <div class="col-xs-6">
 	  	<h3>{{ user_name }}</h3>
-	  	{%if user_gender == 'M'%}
+	  	{%if user.gender == 'M'%}
       		<img class = "profile-picture" src = "{%static "Users/img/user_img/man.png"%}"/>
       	{%else%}
       		<img class = 'profile-picture' src = "{%static "Users/img/user_img/woman.png"%}"/>
