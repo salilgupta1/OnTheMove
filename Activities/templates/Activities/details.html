@@ -16,7 +16,11 @@
 		    <li>
       			<a>
       				<div>
-      					<img class = "profile-picture" src = "{%static "img/person_placeholder.png"%}"/>
+      					{%if owner.gender == 'M'%}
+      						<img class = "profile-picture" src = "{%static "Users/img/user_img/man.png"%}"/>
+      					{%else%}
+      						<img class = 'profile-picture' src = "{%static "Users/img/user_img/woman.png"%}"/>
+      					{%endif%}
       					{{owner.user.first_name}} {{owner.user.last_name}} (Organizer)
       				</div>
       			</a>
@@ -25,7 +29,11 @@
 				<li>
 					<a>
 						<div>
-							<img class = "profile-picture" src = "{%static "img/person_placeholder.png"%}"/>
+							{%if participant.gender == 'M'%}
+      							<img class = "profile-picture" src = "{%static "Users/img/user_img/man.png"%}"/>
+      						{%else%}
+      							<img class = 'profile-picture' src = "{%static "Users/img/user_img/woman.png"%}"/>
+      						{%endif%}
 							{{ participant.user.first_name }} {{ participant.user.last_name }}
 						</div>
 					</a>
@@ -71,7 +79,6 @@
 	  <div class="col-xs-6">
 	  	<h3><span>{{date}}</span> at <span>{{ start_time }}</span></h3>
 	  	<h3><span>{{ address }}</span><br><span>{{city}}, {{ state }} {{ zipcode }}</span></h3>
-	  	<h3><span>Weather: Sunny</span></h3>
 	  	<div id='enrollStatus'>
 		  	{%if user.is_authenticated and is_max_out%}
 		  	<p>Sorry this activity is full!</p>
