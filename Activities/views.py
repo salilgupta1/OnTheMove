@@ -118,8 +118,10 @@ def details(request, id):
 def create_Activity(request):
 	if request.is_ajax():
 		search_term = request.POST['yelp_term']
-		lat = request.session['cur_lat']
-		lng = request.session['cur_lng']
+		# lat = request.session['cur_lat']
+		# lng = request.session['cur_lng']
+		lat = '42.056459'
+		lng = '-87.675267'
 		search_result = yelp_api.search_location(lat,lng,search_term)
 		request.session['search_result'] = search_result
 		return HttpResponse(json.dumps(search_result), content_type="application/json")
