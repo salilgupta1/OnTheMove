@@ -42,7 +42,7 @@ def addUser(request,activity_id,user_id):
 					"aid":activity_id,
 				})
 			)			
-			msg = EmailMultiAlternatives(subject, text_content, from_email,[user.user.email,'salil.gupta323@gmail.com'])
+			msg = EmailMultiAlternatives(subject, text_content, from_email,[user.user.email])
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 		elif is_ignore:
@@ -82,7 +82,7 @@ def details(request, id):
 					"uid":request.user.onthemoveuser.pk
 				})
 			)
-			msg = EmailMultiAlternatives(subject, text_content, from_email,[activity.owner_id.user.email,'salil.gupta323@gmail.com'])## change email
+			msg = EmailMultiAlternatives(subject, text_content, from_email,[activity.owner_id.user.email])## change email
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 			return HttpResponse("Thanks!")
