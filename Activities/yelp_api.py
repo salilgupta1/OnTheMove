@@ -24,7 +24,7 @@ def get_yelp_data(name,lng,lat):
 	#print business_data
 	#print business_data[0]['rating']
 	if len(business_data) == 0:
-		return -1
+		return (-1,-1)
 	entry = business_data[0]
 	rating = entry['rating']
 	if "image_url" in entry.keys():
