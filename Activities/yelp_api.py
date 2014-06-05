@@ -60,11 +60,13 @@ def search_location(lat,lng,keyword):
 				business_list.append(business_obj)
 
 		else:
-			business_obj = {}
-			business_obj['name'] = business[0]['name']
-			business_obj['id'] = business[0]['id']
-			business_obj['location'] = business[0]['location']['display_address'][0]
-			business_list.append(business_obj)
+			len_count = len(business)
+			for i in range(0,len_count):
+				business_obj = {}
+				business_obj['name'] = business[i]['name']
+				business_obj['id'] = business[i]['id']
+				business_obj['location'] = business[i]['location']['display_address'][0]
+				business_list.append(business_obj)
 
 	else:
 		business_list = 'No Yelp Results'
