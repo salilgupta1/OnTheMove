@@ -27,3 +27,7 @@
 	padding-top: 6px;
 	padding-bottom: 6px;
 }
+
+.list-group-item:hover {
+	background-color: #B5B5B1;
+}
